@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MaliciousCode3 : MonoBehaviour
 {
-   public GameObject maliciousObjectPrefab; // The prefab for the malicious object.
+    public GameObject maliciousObjectPrefab; // The prefab for the malicious object.
     public Transform collaborativeObject; // Reference to the collaborative object's Transform.
     public int numberOfObjects = 5; // Number of malicious objects to generate.
     public float stopDistance = 1.0f; // The distance at which objects should stop.
