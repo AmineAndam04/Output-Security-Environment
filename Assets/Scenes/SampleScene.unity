@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 59694ddc5cfad49319644a43fd7b3863, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -240,6 +240,8 @@ GameObject:
   - component: {fileID: 682356656}
   - component: {fileID: 682356657}
   - component: {fileID: 682356658}
+  - component: {fileID: 682356659}
+  - component: {fileID: 682356660}
   m_Layer: 0
   m_Name: Spawner
   m_TagString: Untagged
@@ -304,7 +306,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 682356654}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 99e381d0f1fca4a45839f1ddf80dba69, type: 3}
   m_Name: 
@@ -314,6 +316,37 @@ MonoBehaviour:
   numberOfObjects: 5
   stopDistance: 1
   moveSpeed: 2
+--- !u!114 &682356659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 682356654}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb4870a81ef78154f8b52f800a412459, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maliciousObjectPrefab: {fileID: 265762500341644940, guid: 986ce999682efb04f91f9a6fadffa5c0, type: 3}
+  collaboObjects: {fileID: 1726861915}
+--- !u!114 &682356660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 682356654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7ecad5086c6d48f28e1a587768b1c96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collaborativeObject: {fileID: 1726861915}
+  maliciousObjectPrefab: {fileID: 265762500341644940, guid: 986ce999682efb04f91f9a6fadffa5c0, type: 3}
+  orbitSpeed: 20
+  orbitRadius: 5
+  translationSpeed: 2
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
