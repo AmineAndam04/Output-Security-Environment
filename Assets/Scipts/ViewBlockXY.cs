@@ -2,25 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MaliciousObjectGenerator : MonoBehaviour
+public class MaliciousObjectGeneratorXY : MonoBehaviour
 {
     public GameObject collaborativeObject; // Reference to the collaborative object.
     public GameObject maliciousObjectPrefab; // Prefab of the malicious object.
-    public float orbitSpeed = 20f; // Speed of the orbit.
-    public float orbitRadius = 5f; // Radius of the orbit.
     public float translationSpeed = 2.0f; // Speed of translation.
-    private GameObject maliciousObject;
-    private Vector3 targetPosition;
-    private Vector3 initialPosition ;
+    private GameObject maliciousObject; // The created malicious object
+    private Vector3 targetPosition; // Target position of the malicious objet
+    private Vector3 initialPosition ; // The initial position of the malicious object
 
-    private float journeyLength;
-    private float startTime;
-    private bool isMoving = false;
+    private float journeyLength; //  Distance between targetPosition and initialPosition
+    private float startTime; // Time where the malicious object was generated
+    private bool isMoving = false; // Is the malicious object moving or not
+
+    private int maliciousObjectCount = 0; // Counter for generated malicious objects
+    private int maxMaliciousObjects = 20; // Maximum number of malicious objects
+    public int randomSeed = 12345;
     
     private void Start()
-    {
-        // Start generating malicious objects.
-        
+    {   
+        UnityEngine.Random.InitState(randomSeed);
         StartCoroutine(GenerateMaliciousObjects());
     }
 
@@ -29,13 +30,14 @@ public class MaliciousObjectGenerator : MonoBehaviour
     /// </summary>
     private IEnumerator GenerateMaliciousObjects()
     {
-        while (true)
+        while (maliciousObjectCount < maxMaliciousObjects)
         {
             // Generate malicious object within the bounding box of the collaborative object.
             initialPosition = GenerateRandomPositionInsideBoundingBox(collaborativeObject);
 
             // Instantiate the malicious object.
              maliciousObject = Instantiate(maliciousObjectPrefab, initialPosition, Quaternion.identity);
+             maliciousObjectCount++; 
             // Set the target position for translation.
             targetPosition = GenerateRandomPositionInsideBoundingBox(collaborativeObject);
 
@@ -46,11 +48,8 @@ public class MaliciousObjectGenerator : MonoBehaviour
             isMoving = true;
             startTime = Time.time;
 
-            // Make the malicious object orbit around the collaborative object.
-            //StartCoroutine(OrbitMaliciousObject(maliciousObject));
-
             // Wait for some time before generating the next malicious object.
-            yield return new WaitForSeconds(5.0f);
+            yield return new WaitForSeconds(3.0f);
         }
     }
 
@@ -65,24 +64,12 @@ public class MaliciousObjectGenerator : MonoBehaviour
         Dictionary<string, Vector3> box = utils.GetBoundingBox(gameObject);
         Vector3 Boundmin = box["min"];
         Vector3 Boundmax = box["max"];
-        //Debug.Log(Boundmax);
+        // Generate random position within the bounds of the collaborative object's bounding box.
+        float randomX = Random.Range(Boundmin.x, Boundmax.x);
+        float randomY = Random.Range(Boundmin.y, Boundmax.y);
+        float Z = Boundmin.z - 0.5f; // This depends on the collaborative we want to target. This case our object is in the XY plane.
 
-        //if (box.Count == 0)
-        //{
-            
-
-            // Generate random position within the bounds of the collaborative object's bounding box.
-            float randomX = Random.Range(Boundmin.x, Boundmax.x);
-            float randomY = Random.Range(Boundmin.y, Boundmax.y);
-            float randomZ = Boundmin.z - 0.5f;
-
-            return new Vector3(randomX, randomY, randomZ);
-        //}
-        //else
-        //{
-            //Debug.LogError("The collaborative object does not have a BoxCollider component.");
-            //return Vector3.zero;
-        //}
+        return new Vector3(randomX, randomY, Z);
     }
 
     private void Update()
@@ -103,28 +90,5 @@ public class MaliciousObjectGenerator : MonoBehaviour
             }
         }
     }
-    private IEnumerator OrbitMaliciousObject(GameObject maliciousObject)
-    {
-        while (true)
-        {
-            Dictionary<string, Vector3> box = utils.GetBoundingBox(gameObject);
-            Vector3 Boundmin = box["max"];
-            Vector3 randomPosition = GenerateRandomPositionInsideBoundingBox(collaborativeObject);
-            randomPosition.z = Boundmin.z - 0.5f;
-
-            // Calculate the vector from the malicious object to the center point.
-            Vector3 toCenter = randomPosition - maliciousObject.transform.position;
-
-            // Project the vector onto the XY plane.
-            //toCenter.y = 0f;
-
-            // Calculate the normalized direction for orbiting on the XY plane.
-            Vector3 orbitDirection = toCenter.normalized;
-
-            // Move the malicious object continuously along the XY plane.
-            maliciousObject.transform.Translate(orbitDirection * orbitSpeed * Time.deltaTime, Space.World);
-
-            yield return null;
-        }
-    }
+    
 }
