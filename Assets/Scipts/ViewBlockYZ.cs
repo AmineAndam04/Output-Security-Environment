@@ -65,7 +65,7 @@ public class MaliciousObjectGeneratorYZ : MonoBehaviour
         Vector3 Boundmin = box["min"];
         Vector3 Boundmax = box["max"];
         // Generate random position within the bounds of the collaborative object's bounding box.
-        float X = Boundmin.x - 0.5f ; // This depends on the collaborative we want to target. This case our object is in the XY plane.
+        float X = Boundmin.x + 0.5f ; // This depends on the collaborative we want to target. This case our object is in the XY plane.
         float randomY = Random.Range(Boundmin.y, Boundmax.y);
         float randomZ = Random.Range(Boundmin.z, Boundmax.z);; 
 
