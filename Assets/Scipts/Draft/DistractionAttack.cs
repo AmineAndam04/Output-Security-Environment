@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DistractionObjectWithSpawner : MonoBehaviour
+public class DistractionObjectWithSpawner2 : MonoBehaviour
 {
-    public float colorChangeSpeed = 10.0f;
+    public float colorChangeSpeed = 1.0f;
     public float spawnInterval = 2.0f;
     public GameObject cubePrefab;
     public Transform userToBeDistractedPosition ;
@@ -37,7 +37,7 @@ public class DistractionObjectWithSpawner : MonoBehaviour
         GameObject newCube = Instantiate(cubePrefab, objectPosition, Quaternion.identity);
 
         // Attach the DistractionObjectWithSpawner script to the spawned cube
-        DistractionObjectWithSpawner distractionScript = newCube.GetComponent<DistractionObjectWithSpawner>();
+        DistractionObjectWithSpawner2 distractionScript = newCube.GetComponent<DistractionObjectWithSpawner2>();
         if (distractionScript != null)
         {
             distractionScript.colorChangeSpeed = Random.Range(10f, 20f); // Random color change speed
