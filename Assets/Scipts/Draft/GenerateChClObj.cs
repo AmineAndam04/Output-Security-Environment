@@ -7,12 +7,14 @@ public class InstantiatePrefab : MonoBehaviour
     public GameObject prefabToInstantiate;
     public Transform userToBeDistractedPosition ;
     public int maxDistractionObject = 5 ;
-    public int countObjects =0 ;
+    private int countObjects =0 ;
+    public int randomSeed = 12678;
 
     public float generatPeriod = 5f;
     
     private void Start()
     {
+         UnityEngine.Random.InitState(randomSeed);
         StartCoroutine(InstantiatePrefabRoutine());
     }
 
@@ -22,7 +24,7 @@ public class InstantiatePrefab : MonoBehaviour
         {
             
             Vector3 userPosition = userToBeDistractedPosition.position;
-            Vector3 objectPosition = userPosition + new Vector3(Random.Range(-5f, 5f), Random.Range(1f, 5f), Random.Range(0f, 5f));;  // userToBeDistractedPosition.forward * 2.0f;
+            Vector3 objectPosition = new Vector3(Random.Range(-6f, 9f), Random.Range(3f, 9f), Random.Range(18f, 25f));;  // userToBeDistractedPosition.forward * 2.0f;
             
             // Instantiate the prefab at the position of the empty GameObject
             Instantiate(prefabToInstantiate, objectPosition, Quaternion.identity);
