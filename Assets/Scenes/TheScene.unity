@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -385,9 +385,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 664e98004f4b737419b1e6f90d81687e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabToInstantiate: {fileID: 5151470026169261380, guid: 484d74da792ad93408683ed452978fd1, type: 3}
+  prefabOfColor: {fileID: 5151470026169261380, guid: 484d74da792ad93408683ed452978fd1, type: 3}
+  prefabOfFlicker: {fileID: 5151470026169261380, guid: 473f7c3e6284d428ab3f2c74729dde99, type: 3}
   userToBeDistractedPosition: {fileID: 472926042}
-  maxDistractionObject: 5
+  maxDistractionObject: 7
   randomSeed: 12678
   generatPeriod: 5
 --- !u!4 &1178234582

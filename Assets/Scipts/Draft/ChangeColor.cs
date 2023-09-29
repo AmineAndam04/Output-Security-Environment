@@ -5,11 +5,11 @@ using UnityEngine;
 public class ColorChange : MonoBehaviour
 {
     public Renderer render;
-    public float frequencyChange = 1.0f ;
-    public float flickerInterval = 0.1f; // Adjust the flicker interval as needed
+    public float colorfrequencyChange = 1.0f ;
+    public float flickerfrequencyChange = 0f; // Adjust the flicker interval as needed
 
-    private float minIntensity = 5f;
-    private float maxIntensity = 15f;
+    //private float minIntensity = 5f;
+    //private float maxIntensity = 15f;
     //private Renderer render;
 
     void Start()
@@ -25,11 +25,11 @@ public class ColorChange : MonoBehaviour
             //Color color = render.material.color;
             //color.r = Random.value; // Change the red component to a random value
             Color color = new Color(Random.value, Random.value, Random.value);
-            float randomIntensity = Random.Range(minIntensity, maxIntensity);
+            //float randomIntensity = Random.Range(minIntensity, maxIntensity);
 
-            render.material.color = color * randomIntensity; // Apply the new color to the material
+            render.material.color = color ; // * randomIntensity; // Apply the new color to the material
 
-            yield return new WaitForSeconds(frequencyChange);
+            yield return new WaitForSeconds(colorfrequencyChange);
         }
     }
 }
