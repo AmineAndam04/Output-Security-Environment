@@ -5,6 +5,7 @@ using UnityEngine;
 public class ColorChange : MonoBehaviour
 {
     public Renderer render;
+    public float frequencyChange = 1.0f ;
     //private Renderer render;
 
     void Start()
@@ -22,7 +23,7 @@ public class ColorChange : MonoBehaviour
             Color color = new Color(Random.value, Random.value, Random.value);
             render.material.color = color; // Apply the new color to the material
 
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(frequencyChange);
         }
     }
 }

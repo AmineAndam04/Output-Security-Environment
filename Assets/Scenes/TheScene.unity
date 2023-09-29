@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!4 &100067051 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5384150958459490304, guid: e339a9f809da94a31a6e83b044aa2835, type: 3}
+  m_PrefabInstance: {fileID: 9045495252745774351}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &645755465
 GameObject:
   m_ObjectHideFlags: 0
@@ -334,6 +339,55 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 54ac55948cbdea3498373d628a217ad6, type: 3}
+--- !u!1 &1178234580
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1178234582}
+  - component: {fileID: 1178234581}
+  m_Layer: 0
+  m_Name: AttackDistraction
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1178234581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1178234580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 664e98004f4b737419b1e6f90d81687e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabToInstantiate: {fileID: 5151470026169261380, guid: 484d74da792ad93408683ed452978fd1, type: 3}
+  userToBeDistractedPosition: {fileID: 100067051}
+  maxDistractionObject: 5
+  countObjects: 0
+  generatPeriod: 5
+--- !u!4 &1178234582
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1178234580}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -10.541134, y: 3.1078613, z: 36.2597}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1183648026
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1128,11 +1182,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5027085119002966845, guid: d68b3925cf95e40bcb18f449cf34d93d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.91
+      value: 3.91
       objectReference: {fileID: 0}
     - target: {fileID: 5027085119002966845, guid: d68b3925cf95e40bcb18f449cf34d93d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 42.24
+      value: 42.92
       objectReference: {fileID: 0}
     - target: {fileID: 5027085119002966845, guid: d68b3925cf95e40bcb18f449cf34d93d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1308,3 +1362,4 @@ SceneRoots:
   - {fileID: 305525702892527354}
   - {fileID: 645755467}
   - {fileID: 1541406739}
+  - {fileID: 1178234582}

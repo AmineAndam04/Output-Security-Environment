@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -209,7 +209,7 @@ Transform:
   m_GameObject: {fileID: 71340913}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.2, y: 18.4, z: 10.656}
+  m_LocalPosition: {x: -11.44, y: 21.71, z: 9.16}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -245,6 +245,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabToInstantiate: {fileID: 5151470026169261380, guid: 484d74da792ad93408683ed452978fd1, type: 3}
+  userToBeDistractedPosition: {fileID: 1651690060}
+  maxDistractionObject: 5
+  countObjects: 0
+  generatPeriod: 5
 --- !u!4 &932951079
 Transform:
   m_ObjectHideFlags: 0
@@ -469,12 +473,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1651690059}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 40b1aabe551b20c40b4c69c0052373a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   render: {fileID: 1651690062}
+  frequencyChange: 1
 --- !u!1001 &759701924012406065
 PrefabInstance:
   m_ObjectHideFlags: 0
