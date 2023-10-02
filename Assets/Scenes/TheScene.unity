@@ -534,8 +534,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maliciousAvatarPrefab: {fileID: 7200371419956072671, guid: 9c52f6767e2227d4e9f9ccfdd748dd86, type: 3}
-  privateSpace: 0.5
-  attackPeriod: 50
+  privateSpace: 1.5
+  attackPeriod: 20
 --- !u!4 &1128046941
 Transform:
   m_ObjectHideFlags: 0

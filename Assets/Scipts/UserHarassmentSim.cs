@@ -7,10 +7,10 @@ public class UserHarassmentSim : MonoBehaviour
     public GameObject maliciousAvatarPrefab;
     private GameObject maliciousAvatar;
     private float spawnDelay = 5f;
-    private Vector3 initialPosition = new Vector3(0f, 0f, 0f);
+    private Vector3 initialPosition = new Vector3(16f, 4.2f, 31f);
 
     private GameObject[] otherAvatars;
-    public float privateSpace = 0.5f;
+    public float privateSpace = 1.5f;
     private GameObject targetedAvatar;
     public float attackPeriod = 50f;
     private GameObject previousTargetedAvatar;
