@@ -18,6 +18,7 @@ public class MaliciousObjectGeneratorYZ : MonoBehaviour
     private int maliciousObjectCount = 0; // Counter for generated malicious objects
     private int maxMaliciousObjects = 20; // Maximum number of malicious objects
     public int randomSeed = 12356;
+    public float waitTime = 1f ;
     
     private void Start()
     {   
@@ -49,7 +50,7 @@ public class MaliciousObjectGeneratorYZ : MonoBehaviour
             startTime = Time.time;
 
             // Wait for some time before generating the next malicious object.
-            yield return new WaitForSeconds(3.0f);
+            yield return new WaitForSeconds(waitTime);
         }
     }
 
