@@ -720,7 +720,7 @@ MonoBehaviour:
   prefabOfColor: {fileID: 5151470026169261380, guid: 484d74da792ad93408683ed452978fd1, type: 3}
   prefabOfFlicker: {fileID: 5151470026169261380, guid: 473f7c3e6284d428ab3f2c74729dde99, type: 3}
   userToBeDistractedPosition: {fileID: 472926042}
-  maxDistractionObject: 7
+  maxDistractionObject: 6
   randomSeed: 12678
   generatPeriod: 5
 --- !u!4 &1178234582

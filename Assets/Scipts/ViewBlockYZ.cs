@@ -16,7 +16,7 @@ public class MaliciousObjectGeneratorYZ : MonoBehaviour
     private bool isMoving = false; // Is the malicious object moving or not
 
     private int maliciousObjectCount = 0; // Counter for generated malicious objects
-    private int maxMaliciousObjects = 20; // Maximum number of malicious objects
+    private int maxMaliciousObjects = 6; // Maximum number of malicious objects
     public int randomSeed = 12356;
     public float waitTime = 1f ;
     

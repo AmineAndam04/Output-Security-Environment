@@ -46,15 +46,15 @@ public class TestTags : MonoBehaviour
         
         Debug.Log("Without function " + objectColor.a);
         Debug.Log("With function " + utils.GetAlpha(objectsWithTag[0]));*/
-        GameObject[] objectsWithTag = GameObject.FindGameObjectsWithTag("Distraction");
+        /*GameObject[] objectsWithTag = GameObject.FindGameObjectsWithTag("Distraction");
         ColorChange colorChangeScript;
         colorChangeScript = objectsWithTag[0].GetComponent<ColorChange>();
-
+        
     // Access the colorfrequencyChange variable
         float colorFrequency = colorChangeScript.colorfrequencyChange;
         Debug.Log("The frequency is: "+ colorFrequency);
         //colorChangeScript.colorfrequencyChange= 0.2f; 
-        Debug.Log("With function we get: " + utils.GetFrequencies(objectsWithTag[0]));
+        Debug.Log("With function we get: " + utils.GetFrequencies(objectsWithTag[0]));*/
 
     }
 }
