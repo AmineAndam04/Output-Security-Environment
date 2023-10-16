@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2196119584901173976}
   m_Layer: 0
   m_Name: DistractionObject
-  m_TagString: Untagged
+  m_TagString: Distraction
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -119,4 +119,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   render: {fileID: 6052104723088567363}
-  frequencyChange: 0.1
+  colorfrequencyChange: 0.5
+  flickerfrequencyChange: 0

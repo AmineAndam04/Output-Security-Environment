@@ -50,7 +50,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -927199367670048503, guid: 18ad6875db346ed45a55bfe3b767cb03, type: 3}
       propertyPath: m_Name
-      value: artist_male
+      value: MaliciousUser
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 18ad6875db346ed45a55bfe3b767cb03, type: 3}
+      propertyPath: m_TagString
+      value: AvatarMalicious
       objectReference: {fileID: 0}
     - target: {fileID: 7613480883755037706, guid: 18ad6875db346ed45a55bfe3b767cb03, type: 3}
       propertyPath: m_LocalScale.x

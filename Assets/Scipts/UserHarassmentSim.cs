@@ -39,7 +39,7 @@ public class UserHarassmentSim : MonoBehaviour
                     targetedAvatar = otherAvatars[Random.Range(0, otherAvatars.Length)];
                 } while (targetedAvatar == previousTargetedAvatar); // Ensure the new target is not the same as the previous one
 
-                Debug.Log("New Target: " + targetedAvatar.transform.position);
+                //Debug.Log("New Target: " + targetedAvatar.transform.position);
                 //Debug.Log("Distance btw them is:" + Vector3.Distance(maliciousAvatar.transform.position,targetedAvatar.transform.position));
                 previousTargetedAvatar = targetedAvatar;
             }
@@ -65,7 +65,7 @@ public class UserHarassmentSim : MonoBehaviour
             else
             {
                 maliciousAvatar.transform.position = Vector3.Lerp(maliciousAvatar.transform.position, targetedAvatar.transform.position, Time.deltaTime);
-                Debug.Log("Distance" + distance);
+                //Debug.Log("Distance" + distance);
             }
 
             yield return null;

@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - Avatar
+  - collaborative
+  - AvatarMalicious
+  - Obscure
+  - Distraction
   layers:
   - Default
   - TransparentFX

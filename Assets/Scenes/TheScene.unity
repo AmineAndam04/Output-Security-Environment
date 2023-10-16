@@ -123,6 +123,50 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &49916052
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 49916054}
+  - component: {fileID: 49916053}
+  m_Layer: 0
+  m_Name: Tester
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &49916053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 49916052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 959ffc28c6cca470a9cccd31314f4137, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &49916054
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 49916052}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.23877901, y: 4.676019, z: 38.684265}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &472926042 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2463682643269538496, guid: 660f6a77047884df587923ea00d2366c, type: 3}
@@ -1638,6 +1682,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WhiteBoard
       objectReference: {fileID: 0}
+    - target: {fileID: 7564158295573599715, guid: 69b142daf025640b3838d6de267f296e, type: 3}
+      propertyPath: m_TagString
+      value: collaborative
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1698,6 +1746,10 @@ PrefabInstance:
     - target: {fileID: 7981690404651236140, guid: c5a280d2cd0a44ee787a25bcce85a5b2, type: 3}
       propertyPath: m_Name
       value: SharedPresentation
+      objectReference: {fileID: 0}
+    - target: {fileID: 7981690404651236140, guid: c5a280d2cd0a44ee787a25bcce85a5b2, type: 3}
+      propertyPath: m_TagString
+      value: collaborative
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1927,3 +1979,4 @@ SceneRoots:
   - {fileID: 583215651}
   - {fileID: 1444996650}
   - {fileID: 1597768716}
+  - {fileID: 49916054}

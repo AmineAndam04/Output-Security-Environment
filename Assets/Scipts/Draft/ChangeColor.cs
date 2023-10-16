@@ -5,7 +5,7 @@ using UnityEngine;
 public class ColorChange : MonoBehaviour
 {
     public Renderer render;
-    public float colorfrequencyChange = 1.0f ;
+    public float colorfrequencyChange = 0.5f ;
     public float flickerfrequencyChange = 0f; // Adjust the flicker interval as needed
 
     //private float minIntensity = 5f;
