@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
+using Unity.MLAgents.Actuators;
 
 public class TestAgent : Agent
 {
@@ -11,8 +12,11 @@ public class TestAgent : Agent
      [SerializeField] private int maxState = 172;
     [SerializeField] private int maxAction = 30;
     private Dictionary<string, int>  objectsCount = new Dictionary<string, int> ();
+    //private Dictionary<string,List<List<float>>> stateSpace = new Dictionary<string,List<List<float>>>() ; 
     private float padValue = 999999f; 
     private int currentStateSize = 0;
+    
+    
     public override void CollectObservations(VectorSensor sensor)
     {
         currentStateSize = 0;
@@ -22,6 +26,8 @@ public class TestAgent : Agent
             //Debug.Log(tag +"is" + objectsWithTag.Length);
             objectsCount[tag] =  objectsWithTag.Length;
             //Debug.Log("Nbr of "+ tag +" :"+objectsWithTag.Length);
+            //List<List<float>> values = new List<List<float>>(); 
+            
             if (tag == "collaborative")
             {
                 
@@ -31,6 +37,10 @@ public class TestAgent : Agent
                     Dictionary<string, Vector3> box = utils.GetBoundingBox(gameObject);
                     sensor.AddObservation(box["bounds"]);
                     currentStateSize += 6;
+                    //List<float> value = new List<float> { gameObject.transform.localPosition.x, gameObject.transform.localPosition.y,
+                    // gameObject.transform.localPosition.z,};
+
+                    //values.Add(value);
                     
                 }
                 
@@ -80,5 +90,17 @@ public class TestAgent : Agent
             currentStateSize+=1;
         }
         Debug.Log(currentStateSize);
+    }
+
+    public override void OnActionReceived(ActionBuffers actions)
+    {
+        int i =0;
+        while (i<maxAction && actions.ContinuousActions[i] != padValue)
+        {
+            
+        }
+
+        
+
     }
 }
