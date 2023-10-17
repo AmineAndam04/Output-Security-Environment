@@ -9,6 +9,7 @@ TagManager:
   - AvatarMalicious
   - Obscure
   - Distraction
+  - Cube
   layers:
   - Default
   - TransparentFX

@@ -50,6 +50,10 @@ public struct ObscObject
         float alpha = utils.GetAlpha(gameObject);
         return alpha;
     }
+     public void ShiftPosition(Vector3 shift)
+     {
+        gameObject.transform.localPosition += shift;
+     }
 }
 
 

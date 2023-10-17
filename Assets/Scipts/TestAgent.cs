@@ -138,15 +138,68 @@ public class TestAgent : Agent
         //Debug.Log(currentStateSize);
     }
 
-    /*public override void OnActionReceived(ActionBuffers actions)
+    public override void OnActionReceived(ActionBuffers actions)
     {
-        int i =0;
-        while (i<currentActionsSize)
+        /*if (currentActionsSize == obscList.Count*7 + distrcList.Count*6 + malavatarList.Count * 3 )
         {
+            Debug.Log("Calculation are true for now");
+        }*/
+        Vector3 positionShift = new Vector3(0.1f,0.1f,0.1f);
+        obscList[0].ShiftPosition(positionShift);
+        // Act on Obscure view
+        int actionsIndex = 0;
+        foreach (ObscObject obsc in obscList)
+        {
+            //change position
+            //Debug.Log("Position of x: " + actions.ContinuousActions[actionsIndex]);
+            actionsIndex+=1;
+            //Debug.Log("Position of y: " + actions.ContinuousActions[actionsIndex]);
+            actionsIndex+=1;
+            //Debug.Log("Position of z: " + actions.ContinuousActions[actionsIndex]);
+            actionsIndex+=1;
             
+            //Debug.Log("Position of bx: " + actions.ContinuousActions[actionsIndex]);
+            actionsIndex+=1;
+            //Debug.Log("Position of by: " + actions.ContinuousActions[actionsIndex]);
+            actionsIndex+=1;
+            //Debug.Log("Position of bz: " + actions.ContinuousActions[actionsIndex]);
+            actionsIndex+=1;
+            //Debug.Log("Position of alpha: " + actions.ContinuousActions[actionsIndex]);
+            actionsIndex+=1;
         }
+        //Debug.Log(obscList.Count);
+        //Debug.Log(actionsIndex);
+        foreach (DistrcObject distrc in distrcList)
+        {
+            // change bb
+            //Debug.Log("Position of bx: " + actions.ContinuousActions[actionsIndex]);
+            actionsIndex+=1;
+            //Debug.Log("Position of by: " + actions.ContinuousActions[actionsIndex]);
+            actionsIndex+=1;
+            //Debug.Log("Position of bz: " + actions.ContinuousActions[actionsIndex]);
+            actionsIndex+=1;
+            // change frquencies
+            //Debug.Log("Position of fc: " + actions.ContinuousActions[actionsIndex]);
+            actionsIndex+=1;
+            //Debug.Log("Position of fb: " + actions.ContinuousActions[actionsIndex]);
+            actionsIndex+=1;
+            //Debug.Log("Position of alpha: " + actions.ContinuousActions[actionsIndex]);
+            actionsIndex+=1;
+        }
+
+        foreach (MaliciuosAvatar malavatar in malavatarList)
+        {
+            //Debug.Log("Position of x: " + actions.ContinuousActions[actionsIndex]);
+            actionsIndex+=1;
+            //Debug.Log("Position of y: " + actions.ContinuousActions[actionsIndex]);
+            actionsIndex+=1;
+            //Debug.Log("Position of z: " + actions.ContinuousActions[actionsIndex]);
+            actionsIndex+=1;
+        }
+        //Debug.Log("The final index is: " + actionsIndex);
+        //Debug.Log("The number of actions: "+ currentActionsSize);
 
         
 
-    }*/
+    }
 }
