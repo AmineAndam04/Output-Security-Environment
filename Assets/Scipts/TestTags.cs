@@ -20,6 +20,10 @@ public class TestTags : MonoBehaviour
         Debug.Log("Bound on x: "+ bounds.x);
         Debug.Log("Bound on x: "+ bounds.y);
         Debug.Log("Bound on x: "+ bounds.z);*/
+        GameObject[] objectsWithTag = GameObject.FindGameObjectsWithTag("collaborative");
+        CollabObject customData = new CollabObject(objectsWithTag[0]);
+        Debug.Log(customData.GetPosition());
+        
     }
     void Update()
     {

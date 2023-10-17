@@ -1377,7 +1377,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 43821e120057e994ab22c85bed02b50d, type: 3}
---- !u!1 &1908770273
+--- !u!1 &1960018848
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1385,10 +1385,10 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1908770277}
-  - component: {fileID: 1908770276}
-  - component: {fileID: 1908770275}
-  - component: {fileID: 1908770274}
+  - component: {fileID: 1960018852}
+  - component: {fileID: 1960018851}
+  - component: {fileID: 1960018850}
+  - component: {fileID: 1960018849}
   m_Layer: 0
   m_Name: Agent
   m_TagString: Untagged
@@ -1396,13 +1396,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1908770274
+--- !u!114 &1960018849
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1908770273}
+  m_GameObject: {fileID: 1960018848}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
@@ -1410,13 +1410,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DecisionPeriod: 5
   TakeActionsBetweenDecisions: 1
---- !u!114 &1908770275
+--- !u!114 &1960018850
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1908770273}
+  m_GameObject: {fileID: 1960018848}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9219e490b38de46b69a3347405f2d03a, type: 3}
@@ -1428,13 +1428,13 @@ MonoBehaviour:
   MaxStep: 0
   maxState: 172
   maxAction: 30
---- !u!114 &1908770276
+--- !u!114 &1960018851
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1908770273}
+  m_GameObject: {fileID: 1960018848}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5d1c4e0b1822b495aa52bc52839ecb30, type: 3}
@@ -1444,30 +1444,30 @@ MonoBehaviour:
     VectorObservationSize: 172
     NumStackedVectorObservations: 1
     m_ActionSpec:
-      m_NumContinuousActions: 172
+      m_NumContinuousActions: 130
       BranchSizes: 
-    VectorActionSize: ac000000
+    VectorActionSize: 82000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 1
     hasUpgradedBrainParametersWithActionSpec: 1
   m_Model: {fileID: 0}
   m_InferenceDevice: 0
   m_BehaviorType: 0
-  m_BehaviorName: Filter
+  m_BehaviorName: My Behavior
   TeamId: 0
   m_UseChildSensors: 1
   m_UseChildActuators: 1
   m_ObservableAttributeHandling: 0
---- !u!4 &1908770277
+--- !u!4 &1960018852
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1908770273}
+  m_GameObject: {fileID: 1960018848}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2, y: 2, z: 33}
+  m_LocalPosition: {x: -1.1481762, y: -7.784851, z: 44.442703}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2076,4 +2076,4 @@ SceneRoots:
   - {fileID: 1444996650}
   - {fileID: 1597768716}
   - {fileID: 49916054}
-  - {fileID: 1908770277}
+  - {fileID: 1960018852}

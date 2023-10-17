@@ -9,17 +9,32 @@ public class TestAgent : Agent
 {
     
     private  string[] tagsToFind = {"collaborative","Obscure","Distraction","Avatar","AvatarMalicious"} ;
+
+    
      [SerializeField] private int maxState = 172;
     [SerializeField] private int maxAction = 30;
     private Dictionary<string, int>  objectsCount = new Dictionary<string, int> ();
     //private Dictionary<string,List<List<float>>> stateSpace = new Dictionary<string,List<List<float>>>() ; 
     private float padValue = 999999f; 
     private int currentStateSize = 0;
+    private int currentActionsSize = 0;
+    
+    private List<CollabObject> collabList = new List<CollabObject>();
+    private List<ObscObject> obscList = new List<ObscObject>();
+    private List<DistrcObject> distrcList = new List<DistrcObject>();
+    private List<Avatar> avatarList = new List<Avatar>();
+    private List<MaliciuosAvatar> malavatarList = new List<MaliciuosAvatar>();
     
     
     public override void CollectObservations(VectorSensor sensor)
     {
         currentStateSize = 0;
+        currentActionsSize=0;
+        collabList.Clear();
+        obscList.Clear();
+        distrcList.Clear();
+        avatarList.Clear();
+        malavatarList.Clear();
         foreach (string tag in tagsToFind)
         {
             GameObject[] objectsWithTag = GameObject.FindGameObjectsWithTag(tag);
@@ -33,14 +48,15 @@ public class TestAgent : Agent
                 
                 foreach (GameObject gameObject in objectsWithTag)
                 {
-                    sensor.AddObservation(gameObject.transform.localPosition);
-                    Dictionary<string, Vector3> box = utils.GetBoundingBox(gameObject);
-                    sensor.AddObservation(box["bounds"]);
+                    CollabObject collab = new CollabObject(gameObject);
+                    collabList.Add(collab);
+                    //sensor.AddObservation(gameObject.transform.localPosition);
+                    sensor.AddObservation(collab.GetPosition());
+                    //Dictionary<string, Vector3> box = utils.GetBoundingBox(gameObject);
+                    //sensor.AddObservation(box["bounds"]);
+                    sensor.AddObservation(collab.GetBB());
                     currentStateSize += 6;
-                    //List<float> value = new List<float> { gameObject.transform.localPosition.x, gameObject.transform.localPosition.y,
-                    // gameObject.transform.localPosition.z,};
-
-                    //values.Add(value);
+                    
                     
                 }
                 
@@ -49,11 +65,18 @@ public class TestAgent : Agent
             {
                 foreach (GameObject gameObject in objectsWithTag)
                 {
-                    sensor.AddObservation(gameObject.transform.localPosition);
-                    Dictionary<string, Vector3> box = utils.GetBoundingBox(gameObject);
-                    sensor.AddObservation(box["bounds"]);
-                    sensor.AddObservation(utils.GetAlpha(gameObject));
+                    ObscObject obsc = new ObscObject(gameObject);
+                    obscList.Add(obsc);
+                    //sensor.AddObservation(gameObject.transform.localPosition);
+                    sensor.AddObservation(obsc.GetPosition());
+                    //Dictionary<string, Vector3> box = utils.GetBoundingBox(gameObject);
+                    //sensor.AddObservation(box["bounds"]);
+                    sensor.AddObservation(obsc.GetBB());
+                    //sensor.AddObservation(utils.GetAlpha(gameObject));
+                    sensor.AddObservation(obsc.GetAlpha());
                     currentStateSize += 7;
+                    currentActionsSize+=7;
+
                     
                 }
             }
@@ -61,24 +84,47 @@ public class TestAgent : Agent
             {
                 foreach (GameObject gameObject in objectsWithTag)
                 {
-                    sensor.AddObservation(gameObject.transform.localPosition);
-                    Dictionary<string, Vector3> box = utils.GetBoundingBox(gameObject);
-                    sensor.AddObservation(box["bounds"]);
-                    sensor.AddObservation(utils.GetFrequencies(gameObject));
-                    sensor.AddObservation(utils.GetAlpha(gameObject));
+                    DistrcObject distrc = new DistrcObject(gameObject);
+                    distrcList.Add(distrc);
+                    //sensor.AddObservation(gameObject.transform.localPosition);
+                    sensor.AddObservation(distrc.GetPosition());
+                    //Dictionary<string, Vector3> box = utils.GetBoundingBox(gameObject);
+                    //sensor.AddObservation(box["bounds"]);
+                    sensor.AddObservation(distrc.GetBB());
+                    //sensor.AddObservation(utils.GetFrequencies(gameObject));
+                    sensor.AddObservation(distrc.Getfreq());
+                    //sensor.AddObservation(utils.GetAlpha(gameObject));
+                    sensor.AddObservation(distrc.GetAlpha());
                     currentStateSize += 9;
+                    currentActionsSize += 6;
                     
                 }
             }
 
-            if (tag == "Avatar" || tag ==  "AvatarMalicious")
+            if (tag == "Avatar")
             {
                foreach (GameObject  gameObject in objectsWithTag)
                {
-                  sensor.AddObservation(gameObject.transform.localPosition);
+                  Avatar avatar = new Avatar(gameObject);
+                  avatarList.Add(avatar);
+                  //sensor.AddObservation(gameObject.transform.localPosition);
+                  sensor.AddObservation(avatar.GetPosition());
                   currentStateSize += 3;
                }
+               
                 
+            }
+            if (tag == "AvatarMalicious")
+            {
+                foreach (GameObject  gameObject in objectsWithTag)
+               {
+                  MaliciuosAvatar malavatar = new MaliciuosAvatar(gameObject);
+                  malavatarList.Add(malavatar);
+                  //sensor.AddObservation(gameObject.transform.localPosition);
+                  sensor.AddObservation(malavatar.GetPosition());
+                  currentStateSize += 3;
+                  currentActionsSize+=3;
+               }
             }
             
                     
@@ -89,18 +135,18 @@ public class TestAgent : Agent
             sensor.AddObservation(padValue);
             currentStateSize+=1;
         }
-        Debug.Log(currentStateSize);
+        //Debug.Log(currentStateSize);
     }
 
-    public override void OnActionReceived(ActionBuffers actions)
+    /*public override void OnActionReceived(ActionBuffers actions)
     {
         int i =0;
-        while (i<maxAction && actions.ContinuousActions[i] != padValue)
+        while (i<currentActionsSize)
         {
             
         }
 
         
 
-    }
+    }*/
 }
