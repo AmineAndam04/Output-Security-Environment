@@ -7,7 +7,7 @@ public class TestBounds : MonoBehaviour
     // Start is called before the first frame update
     [SerializeField] int t =0 ;
     private int tt =0 ;
-    private int ttt =0 ;
+    //private int ttt =0 ;
     void Start()
     {
         GameObject[] objectsWithTag = GameObject.FindGameObjectsWithTag("Cube");

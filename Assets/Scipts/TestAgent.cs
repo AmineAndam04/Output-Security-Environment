@@ -11,8 +11,8 @@ public class TestAgent : Agent
     private  string[] tagsToFind = {"collaborative","Obscure","Distraction","Avatar","AvatarMalicious"} ;
 
     
-     [SerializeField] private int maxState = 172;
-    [SerializeField] private int maxAction = 30;
+     [SerializeField] private int maxState = 148;
+    //[SerializeField] private int maxAction = 30;
     private Dictionary<string, int>  objectsCount = new Dictionary<string, int> ();
     //private Dictionary<string,List<List<float>>> stateSpace = new Dictionary<string,List<List<float>>>() ; 
     private float padValue = 999999f; 
@@ -87,16 +87,18 @@ public class TestAgent : Agent
                     DistrcObject distrc = new DistrcObject(gameObject);
                     distrcList.Add(distrc);
                     //sensor.AddObservation(gameObject.transform.localPosition);
-                    sensor.AddObservation(distrc.GetPosition());
+                    //sensor.AddObservation(distrc.GetPosition());
                     //Dictionary<string, Vector3> box = utils.GetBoundingBox(gameObject);
                     //sensor.AddObservation(box["bounds"]);
                     sensor.AddObservation(distrc.GetBB());
                     //sensor.AddObservation(utils.GetFrequencies(gameObject));
                     sensor.AddObservation(distrc.Getfreq());
                     //sensor.AddObservation(utils.GetAlpha(gameObject));
-                    sensor.AddObservation(distrc.GetAlpha());
-                    currentStateSize += 9;
-                    currentActionsSize += 6;
+                    //sensor.AddObservation(distrc.GetAlpha());
+                    //currentStateSize += 9;
+                    //currentActionsSize += 6;
+                    currentStateSize += 5;
+                    currentActionsSize += 5;
                     
                 }
             }
@@ -129,72 +131,55 @@ public class TestAgent : Agent
             
                     
         }
-        
+        Debug.Log(currentStateSize);
         while(currentStateSize< maxState)
         {
             sensor.AddObservation(padValue);
             currentStateSize+=1;
         }
-        //Debug.Log(currentStateSize);
+        Debug.Log(currentStateSize);
     }
 
     public override void OnActionReceived(ActionBuffers actions)
-    {
-        /*if (currentActionsSize == obscList.Count*7 + distrcList.Count*6 + malavatarList.Count * 3 )
-        {
-            Debug.Log("Calculation are true for now");
-        }*/
-        Vector3 positionShift = new Vector3(0.1f,0.1f,0.1f);
-        obscList[0].ShiftPosition(positionShift);
+    {   
+        
+
+        Vector3 positionShift ; //= new Vector3(0.1f,0.1f,0.1f);
+        Vector3 bbShift ;
+        float alphaShift;
+        Vector2 freqshift ;
+
+        //obscList[0].ShiftPosition(positionShift);
         // Act on Obscure view
         int actionsIndex = 0;
         foreach (ObscObject obsc in obscList)
         {
-            //change position
-            //Debug.Log("Position of x: " + actions.ContinuousActions[actionsIndex]);
-            actionsIndex+=1;
-            //Debug.Log("Position of y: " + actions.ContinuousActions[actionsIndex]);
-            actionsIndex+=1;
-            //Debug.Log("Position of z: " + actions.ContinuousActions[actionsIndex]);
-            actionsIndex+=1;
-            
-            //Debug.Log("Position of bx: " + actions.ContinuousActions[actionsIndex]);
-            actionsIndex+=1;
-            //Debug.Log("Position of by: " + actions.ContinuousActions[actionsIndex]);
-            actionsIndex+=1;
-            //Debug.Log("Position of bz: " + actions.ContinuousActions[actionsIndex]);
-            actionsIndex+=1;
-            //Debug.Log("Position of alpha: " + actions.ContinuousActions[actionsIndex]);
-            actionsIndex+=1;
+            positionShift = new Vector3(actions.ContinuousActions[actionsIndex],actions.ContinuousActions[++actionsIndex],actions.ContinuousActions[++actionsIndex]);
+            obsc.ShiftPosition(positionShift); 
+            ++actionsIndex;
+            bbShift = new Vector3(actions.ContinuousActions[actionsIndex],actions.ContinuousActions[++actionsIndex],actions.ContinuousActions[++actionsIndex]);
+            obsc.ShiftBB(bbShift); 
+            ++actionsIndex;
+            alphaShift = actions.ContinuousActions[actionsIndex];
+            obsc.ShiftAlpha(alphaShift);
+            ++actionsIndex;
         }
-        //Debug.Log(obscList.Count);
-        //Debug.Log(actionsIndex);
+        
         foreach (DistrcObject distrc in distrcList)
         {
-            // change bb
-            //Debug.Log("Position of bx: " + actions.ContinuousActions[actionsIndex]);
-            actionsIndex+=1;
-            //Debug.Log("Position of by: " + actions.ContinuousActions[actionsIndex]);
-            actionsIndex+=1;
-            //Debug.Log("Position of bz: " + actions.ContinuousActions[actionsIndex]);
-            actionsIndex+=1;
-            // change frquencies
-            //Debug.Log("Position of fc: " + actions.ContinuousActions[actionsIndex]);
-            actionsIndex+=1;
-            //Debug.Log("Position of fb: " + actions.ContinuousActions[actionsIndex]);
-            actionsIndex+=1;
-            //Debug.Log("Position of alpha: " + actions.ContinuousActions[actionsIndex]);
-            actionsIndex+=1;
+            bbShift = new Vector3(actions.ContinuousActions[actionsIndex],actions.ContinuousActions[++actionsIndex],actions.ContinuousActions[++actionsIndex]);
+            distrc.ShiftBB(bbShift); 
+            ++actionsIndex;
+            freqshift = new Vector2(actions.ContinuousActions[actionsIndex],actions.ContinuousActions[++actionsIndex]);
+            distrc.ShiftFreq(freqshift);
+            ++actionsIndex;
         }
 
         foreach (MaliciuosAvatar malavatar in malavatarList)
         {
-            //Debug.Log("Position of x: " + actions.ContinuousActions[actionsIndex]);
-            actionsIndex+=1;
-            //Debug.Log("Position of y: " + actions.ContinuousActions[actionsIndex]);
-            actionsIndex+=1;
-            //Debug.Log("Position of z: " + actions.ContinuousActions[actionsIndex]);
-            actionsIndex+=1;
+            positionShift = new Vector3(actions.ContinuousActions[actionsIndex],actions.ContinuousActions[++actionsIndex],actions.ContinuousActions[++actionsIndex]);
+            malavatar.ShiftPosition(positionShift); 
+            ++actionsIndex;
         }
         //Debug.Log("The final index is: " + actionsIndex);
         //Debug.Log("The number of actions: "+ currentActionsSize);

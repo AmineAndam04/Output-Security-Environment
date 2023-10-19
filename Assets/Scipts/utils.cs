@@ -45,20 +45,25 @@ public static class utils
         flickerChangeScript = gameObject.GetComponent<FlickerChange>();
         float colorFrequency = 0f ;
         float flickerFrequency = 0f ;
+        Vector2 ret = new Vector2(0f,0f) ;
         if (colorChangeScript != null)
         {
              colorFrequency = colorChangeScript.colorfrequencyChange;
              flickerFrequency = 0f;
+             ret.x = 1 / colorFrequency;
+             ret.y = flickerFrequency;
 
         }
         if (flickerChangeScript != null)
         {
             colorFrequency = 0f;
             flickerFrequency = flickerChangeScript.flickerfrequencyChange;
+            ret.x = colorFrequency;
+            ret.y = 1 / flickerFrequency;
         }
-        Vector2 ret ;
-        ret.x = colorFrequency;
-        ret.y = flickerFrequency;
+        //Vector2 ret ;
+        //ret.x = colorFrequency;
+        //ret.y = flickerFrequency;
         return ret;
     
     }

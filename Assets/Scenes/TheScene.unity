@@ -132,7 +132,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 49916054}
-  - component: {fileID: 49916053}
   m_Layer: 0
   m_Name: Tester
   m_TagString: Untagged
@@ -140,18 +139,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &49916053
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 49916052}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 959ffc28c6cca470a9cccd31314f4137, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &49916054
 Transform:
   m_ObjectHideFlags: 0
@@ -258,7 +245,7 @@ Transform:
   m_GameObject: {fileID: 583215648}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.27, y: 6.56, z: 39.07}
+  m_LocalPosition: {x: 10.27, y: 6.15, z: 37.75}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1225,7 +1212,7 @@ Transform:
   m_GameObject: {fileID: 1597768713}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0.3420201, z: 0, w: 0.9396927}
-  m_LocalPosition: {x: 21.5, y: 7.98, z: 24.93}
+  m_LocalPosition: {x: 19.6, y: 6.837, z: 25.327}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1427,7 +1414,6 @@ MonoBehaviour:
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
   maxState: 172
-  maxAction: 30
 --- !u!114 &1960018851
 MonoBehaviour:
   m_ObjectHideFlags: 0
