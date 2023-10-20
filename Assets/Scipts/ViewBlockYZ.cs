@@ -17,12 +17,12 @@ public class MaliciousObjectGeneratorYZ : MonoBehaviour
 
     private int maliciousObjectCount = 0; // Counter for generated malicious objects
     private int maxMaliciousObjects = 6; // Maximum number of malicious objects
-    public int randomSeed = 12356;
+    //public int randomSeed = 12356;
     public float waitTime = 1f ;
     
     private void Start()
     {   
-        UnityEngine.Random.InitState(randomSeed);
+        //UnityEngine.Random.InitState(randomSeed);
         StartCoroutine(GenerateMaliciousObjects());
     }
 

@@ -9,13 +9,13 @@ public class InstantiatePrefab : MonoBehaviour
     public Transform userToBeDistractedPosition ;
     public int maxDistractionObject = 5 ;
     private int countObjects =0 ;
-    public int randomSeed = 12678;
+    //public int randomSeed = 12678;
 
     public float generatPeriod = 5f;
     
     private void Start()
     {
-        UnityEngine.Random.InitState(randomSeed);
+        //UnityEngine.Random.InitState(randomSeed);
         StartCoroutine(InstantiatePrefabRoutine());
     }
 
