@@ -30,12 +30,28 @@ public class TestAgent : Agent
     private float cf0 = 1/20 ;
     private float bf0 = 1/20;
     private float du = 1.5f;
-    private SendRewards sendRewards;
+    private List<float> rewardWeights = new List<float> {1.0f,1.0f,1.0f,1.0f,1.0f,1.0f}; 
+    private SendHyperParameters sendHyperParameters;
+
+    private List<float> hyperParameters ;
     
     public override void Initialize()
     {
-        sendRewards = new SendRewards();
-        SideChannelManager.RegisterSideChannel(sendRewards);
+        sendHyperParameters = new SendHyperParameters();
+        SideChannelManager.RegisterSideChannel(sendHyperParameters);
+        hyperParameters = sendHyperParameters.GetReceivedHyperParameters();
+        int numHyperParameters = (int) hyperParameters[0];
+        alphaThreshold = hyperParameters[1];
+        cf0 = hyperParameters[2];
+        bf0 = hyperParameters[3];
+        du = hyperParameters[4];
+        int i = 0;
+        while (i< rewardWeights.Count)
+        {
+            rewardWeights[i] = hyperParameters[i+5];
+        }
+
+
     }
     public override void CollectObservations(VectorSensor sensor)
     {
@@ -142,13 +158,13 @@ public class TestAgent : Agent
             
                     
         }
-        Debug.Log(currentStateSize);
+        //Debug.Log(currentStateSize);
         while(currentStateSize< maxState)
         {
             sensor.AddObservation(padValue);
             currentStateSize+=1;
         }
-        Debug.Log(currentStateSize);
+        //Debug.Log(currentStateSize);
     }
 
     public override void OnActionReceived(ActionBuffers actions)
@@ -231,9 +247,9 @@ public class TestAgent : Agent
             }
             
         }
-        AddReward(Reward1);
+        AddReward(rewardWeights[0]*Reward1);
         rewads.Add(Reward1);
-        AddReward(Reward2);
+        AddReward(rewardWeights[1]*Reward2);
         rewads.Add(Reward2);
         float Reward3 = 0f ;
         
@@ -246,7 +262,7 @@ public class TestAgent : Agent
                 i+=2;
             }
         }
-        AddReward(Reward3);
+        AddReward(rewardWeights[2]*Reward3);
         rewads.Add(Reward3);
 
         // Act in distraction objects 
@@ -270,9 +286,9 @@ public class TestAgent : Agent
             Reward4 -= utils.ReLU(freqs.x - bf0);
             
         }
-        AddReward(Reward4);
+        AddReward(rewardWeights[3]*Reward4);
         rewads.Add(Reward4);
-        AddReward(Reward5);
+        AddReward(rewardWeights[4]*Reward5);
         rewads.Add(Reward5);
 
         foreach (MaliciuosAvatar malavatar in malavatarList)
@@ -291,12 +307,8 @@ public class TestAgent : Agent
             }
             
         }
-        AddReward(Reward6);
+        AddReward(rewardWeights[5]*Reward6);
         rewads.Add(Reward6);
-        sendRewards.SendIndividualRewards(rewads);
-        
-
-        
-
+        sendHyperParameters.SendIndividualRewards(rewads);
     }
 }
