@@ -4,6 +4,8 @@ using UnityEngine;
 using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
 using Unity.MLAgents.Actuators;
+using Unity.VisualScripting;
+using Unity.MLAgents.SideChannels;
 
 public class TestAgent : Agent
 {
@@ -24,8 +26,17 @@ public class TestAgent : Agent
     private List<DistrcObject> distrcList = new List<DistrcObject>();
     private List<Avatar> avatarList = new List<Avatar>();
     private List<MaliciuosAvatar> malavatarList = new List<MaliciuosAvatar>();
+    private float alphaThreshold = 0.1f; 
+    private float cf0 = 1/20 ;
+    private float bf0 = 1/20;
+    private float du = 1.5f;
+    private SendRewards sendRewards;
     
-    
+    public override void Initialize()
+    {
+        sendRewards = new SendRewards();
+        SideChannelManager.RegisterSideChannel(sendRewards);
+    }
     public override void CollectObservations(VectorSensor sensor)
     {
         currentStateSize = 0;
@@ -54,7 +65,7 @@ public class TestAgent : Agent
                     sensor.AddObservation(collab.GetPosition());
                     //Dictionary<string, Vector3> box = utils.GetBoundingBox(gameObject);
                     //sensor.AddObservation(box["bounds"]);
-                    sensor.AddObservation(collab.GetBB());
+                    sensor.AddObservation(collab.GetBB()["bounds"]);
                     currentStateSize += 6;
                     
                     
@@ -71,7 +82,7 @@ public class TestAgent : Agent
                     sensor.AddObservation(obsc.GetPosition());
                     //Dictionary<string, Vector3> box = utils.GetBoundingBox(gameObject);
                     //sensor.AddObservation(box["bounds"]);
-                    sensor.AddObservation(obsc.GetBB());
+                    sensor.AddObservation(obsc.GetBB()["bounds"]);
                     //sensor.AddObservation(utils.GetAlpha(gameObject));
                     sensor.AddObservation(obsc.GetAlpha());
                     currentStateSize += 7;
@@ -144,18 +155,39 @@ public class TestAgent : Agent
     {   
         
 
-        Vector3 positionShift ; //= new Vector3(0.1f,0.1f,0.1f);
+        Vector3 positionShift ; 
         Vector3 bbShift ;
         float alphaShift;
         Vector2 freqshift ;
+        // Compute Ixy and Iyz for View blocking elements
+        Dictionary<CollabObject, List<float>>  Ixyz = new Dictionary<CollabObject, List<float>>() ;
+        List<Vector3> initialPosition = new  List<Vector3>() ;
+        List<float> rewads = new List<float>() ;
+        
+        foreach (CollabObject collab in collabList)
+        {
+            List<float> I = new List<float>() ;
+            foreach (ObscObject obsc in obscList)
+            {
+                Vector2 ixyz= utils.Ixyz(collab.gameObject,obsc.gameObject);
+                I.Add(ixyz.x);
+                I.Add(ixyz.y);
+            }
+            Ixyz.Add(collab,I);
+        }
 
-        //obscList[0].ShiftPosition(positionShift);
+        
+
+
+
+        float Reward2 = 0f;
         // Act on Obscure view
         int actionsIndex = 0;
         foreach (ObscObject obsc in obscList)
         {
             positionShift = new Vector3(actions.ContinuousActions[actionsIndex],actions.ContinuousActions[++actionsIndex],actions.ContinuousActions[++actionsIndex]);
             obsc.ShiftPosition(positionShift); 
+            Reward2 -= Vector3.Distance(positionShift, new Vector3(0f,0f,0f));
             ++actionsIndex;
             bbShift = new Vector3(actions.ContinuousActions[actionsIndex],actions.ContinuousActions[++actionsIndex],actions.ContinuousActions[++actionsIndex]);
             obsc.ShiftBB(bbShift); 
@@ -165,6 +197,59 @@ public class TestAgent : Agent
             ++actionsIndex;
         }
         
+
+        // Compute the rewards for View Blocking attack
+        float Reward1=0f ;
+        foreach (CollabObject collab in collabList)
+        {
+            int i = 0;
+            foreach (ObscObject obsc in obscList)
+            {
+                Vector3 w = collab.GetPosition();
+                Vector3 o = obsc.GetPosition();
+                Vector3 bb = obsc.GetBB()["bounds"];
+                float volume = bb.x * bb.y * bb.z ;
+                if (Ixyz[collab][i]==1)
+                {
+                    Vector2 axyz= utils.Axyz(collab.gameObject,obsc.gameObject);
+                    float axy = axyz.x;
+                    float dxy = Vector2.Distance(new Vector2(w.x,w.y),new Vector2(o.x,o.y));
+                    
+                    Reward1 += dxy - axy - volume;
+
+
+                }
+                ++i;
+                if (Ixyz[collab][i]==1)
+                {
+                    Vector2 axyz= utils.Axyz(collab.gameObject,obsc.gameObject);
+                    float ayz = axyz.y;
+                    float dyz = Vector2.Distance(new Vector2(w.y,w.z),new Vector2(o.y,o.z));
+                    Reward1 += dyz - ayz - volume;
+                }
+                ++i;
+            }
+            
+        }
+        AddReward(Reward1);
+        rewads.Add(Reward1);
+        AddReward(Reward2);
+        rewads.Add(Reward2);
+        float Reward3 = 0f ;
+        
+        foreach (CollabObject collab in collabList)
+        {
+            int i=0;
+            foreach (ObscObject obsc in obscList)
+            {
+                Reward3 -= (Ixyz[collab][i] + Ixyz[collab][i+1]) *utils.ReLU(obsc.GetAlpha() - alphaThreshold);
+                i+=2;
+            }
+        }
+        AddReward(Reward3);
+        rewads.Add(Reward3);
+
+        // Act in distraction objects 
         foreach (DistrcObject distrc in distrcList)
         {
             bbShift = new Vector3(actions.ContinuousActions[actionsIndex],actions.ContinuousActions[++actionsIndex],actions.ContinuousActions[++actionsIndex]);
@@ -175,14 +260,41 @@ public class TestAgent : Agent
             ++actionsIndex;
         }
 
+        // Compute Reward4
+        float Reward4 = 0f;
+        float Reward5 = 0f;
+        foreach (DistrcObject distrc in distrcList)
+        {
+            Vector2 freqs =  distrc.Getfreq();
+            Reward5 -= utils.ReLU(freqs.x - cf0);
+            Reward4 -= utils.ReLU(freqs.x - bf0);
+            
+        }
+        AddReward(Reward4);
+        rewads.Add(Reward4);
+        AddReward(Reward5);
+        rewads.Add(Reward5);
+
         foreach (MaliciuosAvatar malavatar in malavatarList)
         {
             positionShift = new Vector3(actions.ContinuousActions[actionsIndex],actions.ContinuousActions[++actionsIndex],actions.ContinuousActions[++actionsIndex]);
             malavatar.ShiftPosition(positionShift); 
             ++actionsIndex;
         }
-        //Debug.Log("The final index is: " + actionsIndex);
-        //Debug.Log("The number of actions: "+ currentActionsSize);
+
+        float Reward6 = 0f;
+        foreach (Avatar avatar in avatarList)
+        {
+            if (malavatarList.Count != 0)
+            {
+                Reward6 -= utils.ReLU(du - Vector3.Distance(avatar.GetPosition(),malavatarList[0].GetPosition()));
+            }
+            
+        }
+        AddReward(Reward6);
+        rewads.Add(Reward6);
+        sendRewards.SendIndividualRewards(rewads);
+        
 
         
 

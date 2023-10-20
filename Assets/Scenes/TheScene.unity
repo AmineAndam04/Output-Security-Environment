@@ -148,7 +148,7 @@ Transform:
   m_GameObject: {fileID: 49916052}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.23877901, y: 4.676019, z: 38.684265}
+  m_LocalPosition: {x: 9.828, y: 2.6, z: 31.08}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1395,7 +1395,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DecisionPeriod: 5
+  DecisionPeriod: 15
   TakeActionsBetweenDecisions: 1
 --- !u!114 &1960018850
 MonoBehaviour:
@@ -1412,7 +1412,7 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 0
+  MaxStep: 1000
   maxState: 172
 --- !u!114 &1960018851
 MonoBehaviour:

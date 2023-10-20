@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public static class utils
@@ -67,6 +69,58 @@ public static class utils
         return ret;
     
     }
+
+    public static Vector2 Ixyz(GameObject collab, GameObject other)
+    {
+        Dictionary<string, Vector3> boxCollab = utils.GetBoundingBox(collab);
+        Dictionary<string, Vector3> boxOther = utils.GetBoundingBox(other);
+        
+        int Ix = I(new Vector2(boxCollab["max"].x,boxCollab["min"].x),new Vector2(boxOther["max"].x,boxOther["min"].x));
+        int Iy = I(new Vector2(boxCollab["max"].y,boxCollab["min"].y),new Vector2(boxOther["max"].y,boxOther["min"].y));
+        int Iz = I(new Vector2(boxCollab["max"].z,boxCollab["min"].z),new Vector2(boxOther["max"].z,boxOther["min"].z));
+
+        return new Vector2(Ix*Iy,Iy*Iz);
+    }
+
+    public static Vector2 Axyz(GameObject collab, GameObject other)
+    {
+        Dictionary<string, Vector3> boxCollab = utils.GetBoundingBox(collab);
+        Dictionary<string, Vector3> boxOther = utils.GetBoundingBox(other);
+        
+        float Ax = A(new Vector2(boxCollab["max"].x,boxCollab["min"].x),new Vector2(boxOther["max"].x,boxOther["min"].x));
+        float Ay = A(new Vector2(boxCollab["max"].y,boxCollab["min"].y),new Vector2(boxOther["max"].y,boxOther["min"].y));
+        float Az = A(new Vector2(boxCollab["max"].z,boxCollab["min"].z),new Vector2(boxOther["max"].z,boxOther["min"].z));
+
+        return new Vector2(Ax*Ay,Ay*Az);
+    }
+
+    public static int I(Vector2 collab, Vector2 other)
+    {
+        
+        return IndicatorCondition(collab.x,other.y) * IndicatorCondition(other.x,collab.y);
+    }
+    public static float A(Vector2 collab, Vector2 other)
+    {
+        
+        return  Math.Min(collab.x,other.x) - Math.Max(collab.y,other.y);
+    }
+    public static int IndicatorCondition(float x, float y)
+    {
+        if (x > y)
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    public static float ReLU(float x)
+    {
+        return Math.Max(0,x);
+    }
+
+    
 
 
 }

@@ -17,10 +17,10 @@ public struct CollabObject
         return gameObject.transform.localPosition;
         
     }
-    public Vector3 GetBB()
+    public Dictionary<string, Vector3>  GetBB()
     {
         Dictionary<string, Vector3> box = utils.GetBoundingBox(gameObject);
-        return box["bounds"];
+        return box; //box["bounds"];
     }
 
 }
@@ -39,10 +39,10 @@ public struct ObscObject
         return gameObject.transform.localPosition;
         
     }
-    public Vector3 GetBB()
+    public Dictionary<string, Vector3>  GetBB()
     {
         Dictionary<string, Vector3> box = utils.GetBoundingBox(gameObject);
-        return box["bounds"];
+        return box; //box["bounds"];
     }
 
     public float GetAlpha()
