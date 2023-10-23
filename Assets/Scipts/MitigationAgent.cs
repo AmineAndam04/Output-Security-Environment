@@ -13,7 +13,7 @@ public class TestAgent : Agent
     private  string[] tagsToFind = {"collaborative","Obscure","Distraction","Avatar","AvatarMalicious"} ;
 
     
-     [SerializeField] private int maxState = 148;
+     private int maxState = 148;
     //[SerializeField] private int maxAction = 30;
     private Dictionary<string, int>  objectsCount = new Dictionary<string, int> ();
     //private Dictionary<string,List<List<float>>> stateSpace = new Dictionary<string,List<List<float>>>() ; 
@@ -40,18 +40,20 @@ public class TestAgent : Agent
         sendHyperParameters = new SendHyperParameters();
         SideChannelManager.RegisterSideChannel(sendHyperParameters);
         hyperParameters = sendHyperParameters.GetReceivedHyperParameters();
+    }
+     private void Start() {
+        
         int numHyperParameters = (int) hyperParameters[0];
         alphaThreshold = hyperParameters[1];
         cf0 = hyperParameters[2];
         bf0 = hyperParameters[3];
         du = hyperParameters[4];
-        int i = 0;
-        while (i< rewardWeights.Count)
+        int j = 0;
+        while (j< rewardWeights.Count)
         {
-            rewardWeights[i] = hyperParameters[i+5];
+            rewardWeights[j] = hyperParameters[j+5];
+            j+=1; 
         }
-
-
     }
     public override void CollectObservations(VectorSensor sensor)
     {
