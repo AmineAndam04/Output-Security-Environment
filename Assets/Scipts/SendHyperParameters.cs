@@ -25,18 +25,26 @@ public class SendHyperParameters : SideChannel
         }
         
     }
-    public void SendIndividualRewards(List<float> floatList)
+    /*public void SendIndividualRewards(List<float> floatList)
     {
+        
+        int index = 0;
+        if (floatList.Count > 0 && floatList.Count <7){
         using (var msgOut = new OutgoingMessage())
         {
             
             foreach (var floatValue in floatList)
             {
                 msgOut.WriteFloat32(floatValue);
+                index +=1;
+                if (index > 5)
+                {
+                    break;
+                }
             }
             QueueMessageToSend(msgOut);
-        }
-    }
+        }}
+    }*/
 
     public List<float> GetReceivedHyperParameters()
     {

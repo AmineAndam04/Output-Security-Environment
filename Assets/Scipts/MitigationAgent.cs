@@ -11,6 +11,9 @@ public class TestAgent : Agent
 {
     
     private  string[] tagsToFind = {"collaborative","Obscure","Distraction","Avatar","AvatarMalicious"} ;
+    //public SendHyperParameters sendHyperParameters { get; private set; }
+    private StatsRecorder statsRecorder;
+    private bool episodeStarted = false;
 
     
      private int maxState = 148;
@@ -34,14 +37,34 @@ public class TestAgent : Agent
     private SendHyperParameters sendHyperParameters;
 
     private List<float> hyperParameters ;
+    //private float beg = 55f;
+    private List<float> rewads = new List<float>() ;
+    
+    public GameObject EnvManager ;
+
     
     public override void Initialize()
     {
         sendHyperParameters = new SendHyperParameters();
         SideChannelManager.RegisterSideChannel(sendHyperParameters);
         hyperParameters = sendHyperParameters.GetReceivedHyperParameters();
+        statsRecorder = Academy.Instance.StatsRecorder;
     }
-     private void Start() {
+    public override void OnEpisodeBegin()
+    {
+    // Reset the environment at the beginning of each episode
+        EnvironmentManager environmentManager = EnvManager.GetComponent<EnvironmentManager>();
+        environmentManager.ResetEnvironment();
+        episodeStarted = true;
+        currentStateSize = 0;
+        currentActionsSize=0;
+        collabList.Clear();
+        obscList.Clear();
+        distrcList.Clear();
+        avatarList.Clear();
+        malavatarList.Clear();
+    }
+    private void Start() {
         
         int numHyperParameters = (int) hyperParameters[0];
         alphaThreshold = hyperParameters[1];
@@ -57,6 +80,9 @@ public class TestAgent : Agent
     }
     public override void CollectObservations(VectorSensor sensor)
     {
+        if (episodeStarted){
+            
+        
         currentStateSize = 0;
         currentActionsSize=0;
         collabList.Clear();
@@ -161,18 +187,22 @@ public class TestAgent : Agent
                     
         }
         //Debug.Log(currentStateSize);
+        //sensor.AddObservation(beg);
+        //beg = 55;
         while(currentStateSize< maxState)
         {
             sensor.AddObservation(padValue);
             currentStateSize+=1;
         }
         //Debug.Log(currentStateSize);
+        }
     }
+    
 
     public override void OnActionReceived(ActionBuffers actions)
     {   
-        
-
+        if (episodeStarted){
+        rewads.Clear();
         Vector3 positionShift ; 
         Vector3 bbShift ;
         float alphaShift;
@@ -180,7 +210,7 @@ public class TestAgent : Agent
         // Compute Ixy and Iyz for View blocking elements
         Dictionary<CollabObject, List<float>>  Ixyz = new Dictionary<CollabObject, List<float>>() ;
         List<Vector3> initialPosition = new  List<Vector3>() ;
-        List<float> rewads = new List<float>() ;
+        
         
         foreach (CollabObject collab in collabList)
         {
@@ -193,10 +223,6 @@ public class TestAgent : Agent
             }
             Ixyz.Add(collab,I);
         }
-
-        
-
-
 
         float Reward2 = 0f;
         // Act on Obscure view
@@ -311,6 +337,17 @@ public class TestAgent : Agent
         }
         AddReward(rewardWeights[5]*Reward6);
         rewads.Add(Reward6);
-        sendHyperParameters.SendIndividualRewards(rewads);
-    }
+        
+        statsRecorder.Add("Reward1", Reward1);
+        statsRecorder.Add("Reward2", Reward2);
+        statsRecorder.Add("Reward3", Reward3);
+        statsRecorder.Add("Reward4", Reward4);
+        statsRecorder.Add("Reward5", Reward5);
+        statsRecorder.Add("Reward6", Reward6);
+        //Debug.Log(rewads.Count);
+        
+        //sendHyperParameters.SendIndividualRewards(rewads);
+        }
+    } 
+
 }

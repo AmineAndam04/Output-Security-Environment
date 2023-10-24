@@ -19,12 +19,13 @@ public class MaliciousObjectGeneratorYZ : MonoBehaviour
     private int maxMaliciousObjects = 6; // Maximum number of malicious objects
     //public int randomSeed = 12356;
     public float waitTime = 1f ;
+    private List<GameObject> maliciousObjects = new List<GameObject>();
     
-    private void Start()
+    /*private void Start()
     {   
         //UnityEngine.Random.InitState(randomSeed);
         StartCoroutine(GenerateMaliciousObjects());
-    }
+    }*/
 
     /// <summary>
     /// Generate a malicious object. A new object is generated every 5 seconds
@@ -38,6 +39,7 @@ public class MaliciousObjectGeneratorYZ : MonoBehaviour
 
             // Instantiate the malicious object.
              maliciousObject = Instantiate(maliciousObjectPrefab, initialPosition, Quaternion.identity);
+             maliciousObjects.Add(maliciousObject);
              maliciousObjectCount++;
             // Set the target position for translation.
             targetPosition = GenerateRandomPositionInsideBoundingBox(collaborativeObject);
@@ -90,6 +92,21 @@ public class MaliciousObjectGeneratorYZ : MonoBehaviour
                 isMoving = false; // Stop moving.
             }
         }
+    }
+
+    public void ResetAttack()
+    {
+        StopCoroutine(GenerateMaliciousObjects());
+        if (maliciousObjects.Count > 0)
+        {
+            foreach (var maliciousObj in maliciousObjects)
+            {
+                Destroy(maliciousObj);
+            }
+            maliciousObjects.Clear();
+            maliciousObjectCount = 0;
+        } 
+        StartCoroutine(GenerateMaliciousObjects());
     }
     
 }

@@ -12,12 +12,14 @@ public class InstantiatePrefab : MonoBehaviour
     //public int randomSeed = 12678;
 
     public float generatPeriod = 5f;
+    private List<GameObject> distractionObjects = new List<GameObject>();
+
     
-    private void Start()
+    /*private void Start()
     {
         //UnityEngine.Random.InitState(randomSeed);
         StartCoroutine(InstantiatePrefabRoutine());
-    }
+    }*/
 
     IEnumerator InstantiatePrefabRoutine()
     {
@@ -27,15 +29,17 @@ public class InstantiatePrefab : MonoBehaviour
             Vector3 userPosition = userToBeDistractedPosition.position;
             Vector3 objectPosition = new Vector3(Random.Range(-6f, 9f), Random.Range(3f, 9f), Random.Range(18f, 25f));;  // userToBeDistractedPosition.forward * 2.0f;
             int choice = Random.Range(0, 2);
+            GameObject distractionObject;
             if (choice == 1)
             {
-                Instantiate(prefabOfColor, objectPosition, Quaternion.identity);
+                distractionObject = Instantiate(prefabOfColor, objectPosition, Quaternion.identity);
                 countObjects++;
             }
             else{
-                Instantiate(prefabOfFlicker, objectPosition, Quaternion.identity);
+                distractionObject = Instantiate(prefabOfFlicker, objectPosition, Quaternion.identity);
                 countObjects++;
             }
+            distractionObjects.Add(distractionObject);
             // Instantiate the prefab at the position of the empty GameObject
             // Instantiate(prefabToInstantiate, objectPosition, Quaternion.identity);
             // countObjects++;
@@ -43,5 +47,20 @@ public class InstantiatePrefab : MonoBehaviour
 
             yield return new WaitForSeconds(generatPeriod);
         }
+    }
+    public void ResetAttack()
+    {
+        StopCoroutine(InstantiatePrefabRoutine());
+        if (distractionObjects.Count >0)
+        {
+            foreach (var distractionObject in distractionObjects)
+            {
+                    Destroy(distractionObject);
+            }
+            distractionObjects.Clear();
+            countObjects = 0;
+        }
+        StartCoroutine(InstantiatePrefabRoutine());
+        
     }
 }

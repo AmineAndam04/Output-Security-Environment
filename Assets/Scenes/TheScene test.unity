@@ -123,54 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &100881974
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 100881976}
-  - component: {fileID: 100881975}
-  m_Layer: 0
-  m_Name: EnvManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &100881975
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 100881974}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83c0256e7bd614bdab66a5eb59382f4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AttackSharedPresentation: {fileID: 645755465}
-  AttackWhiteBoard: {fileID: 1541406737}
-  AttackDistraction: {fileID: 1178234580}
-  UserHarassement: {fileID: 1128046939}
---- !u!4 &100881976
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 100881974}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.359015, y: 3.3827286, z: 28.378738}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &472926042 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2463682643269538496, guid: 660f6a77047884df587923ea00d2366c, type: 3}
@@ -1485,7 +1437,6 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
-  EnvManager: {fileID: 100881974}
 --- !u!114 &1960018851
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2155,4 +2106,3 @@ SceneRoots:
   - {fileID: 1597768716}
   - {fileID: 1960018852}
   - {fileID: 1491444475}
-  - {fileID: 100881976}

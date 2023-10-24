@@ -15,11 +15,11 @@ public class UserHarassmentSim : MonoBehaviour
     public float attackPeriod = 50f;
     private GameObject previousTargetedAvatar;
 
-    void Start()
+    /*void Start()
     {
         Invoke("SpawnMaliciousAvatar", spawnDelay);
         otherAvatars = GameObject.FindGameObjectsWithTag("Avatar");
-    }
+    }*/
 
     void SpawnMaliciousAvatar()
     {
@@ -70,6 +70,18 @@ public class UserHarassmentSim : MonoBehaviour
 
             yield return null;
         }
+    }
+
+    public void ResetAttack()
+    {
+        StopCoroutine(AttackRoutine());
+        if (maliciousAvatar != null)
+        {
+            Destroy(maliciousAvatar);
+            targetedAvatar = null;
+            previousTargetedAvatar = null;
+        }
+        Invoke("SpawnMaliciousAvatar", spawnDelay);
     }
 }
 
