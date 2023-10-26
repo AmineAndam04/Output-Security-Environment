@@ -329,8 +329,9 @@ public class TestAgent : Agent
         foreach (DistrcObject distrc in distrcList)
         {
             Vector2 freqs =  distrc.Getfreq();
-            Reward5 -= utils.ReLU(freqs.x - cf0);
-            Reward4 -= utils.ReLU(freqs.x - bf0);
+            float volume = distrc.GetVolume();
+            Reward5 -= utils.ReLU(freqs.x - cf0) * volume;
+            Reward4 -= utils.ReLU(freqs.x - bf0)*volume;
             
         }
         AddReward(rewardWeights[3]*Reward4);
@@ -368,16 +369,6 @@ public class TestAgent : Agent
         statsRecorder.Add("Reward5", Reward5);
         statsRecorder.Add("Reward6", Reward6);
         statsRecorder.Add("Total Reward",totalReward);
-        statsRecorder.Add("alphaThreshold",hyperParameters[1]);
-        statsRecorder.Add("cf0",hyperParameters[2]);
-        statsRecorder.Add("bf0",hyperParameters[3]);
-        statsRecorder.Add("du",hyperParameters[4]);
-        statsRecorder.Add("a1",hyperParameters[5]);
-        statsRecorder.Add("a2",hyperParameters[6]);
-        statsRecorder.Add("a3",hyperParameters[7]);
-        statsRecorder.Add("a4",hyperParameters[8]);
-        statsRecorder.Add("a5",hyperParameters[9]);
-        statsRecorder.Add("a6",hyperParameters[10]);
         //Debug.Log(rewads.Count);
         //Debug.Log("Total reward is:" + (Reward1 + Reward2 + Reward3 + Reward4 + Reward5 + Reward6));
         //SetReward((Reward1 + Reward2 + Reward3 + Reward4 + Reward5 + Reward6));

@@ -27,7 +27,7 @@ public class InstantiatePrefab : MonoBehaviour
         {
             
             Vector3 userPosition = userToBeDistractedPosition.position;
-            Vector3 objectPosition = new Vector3(Random.Range(-6f, 9f), Random.Range(3f, 9f), Random.Range(18f, 25f));;  // userToBeDistractedPosition.forward * 2.0f;
+            Vector3 objectPosition = new Vector3(Random.Range(-6f, 9f), Random.Range(3f, 9f), Random.Range(19f, 25f));;  // userToBeDistractedPosition.forward * 2.0f;
             int choice = Random.Range(0, 2);
             GameObject distractionObject;
             if (choice == 1)

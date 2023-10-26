@@ -91,6 +91,11 @@ public struct DistrcObject
         Dictionary<string, Vector3> box = utils.GetBoundingBox(gameObject);
         return box["bounds"];
     }
+    public float GetVolume()
+    {
+        Vector3 bb = this.GetBB();
+        return bb.x * bb.y * bb.z ;
+    }
 
     public float GetAlpha()
     {
