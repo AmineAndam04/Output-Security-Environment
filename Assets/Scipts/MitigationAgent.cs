@@ -20,7 +20,7 @@ public class TestAgent : Agent
     //[SerializeField] private int maxAction = 30;
     private Dictionary<string, int>  objectsCount = new Dictionary<string, int> ();
     //private Dictionary<string,List<List<float>>> stateSpace = new Dictionary<string,List<List<float>>>() ; 
-    private float padValue = 999999f; 
+    private float padValue = 9999f; 
     private int currentStateSize = 0;
     private int currentActionsSize = 0;
     
@@ -32,24 +32,39 @@ public class TestAgent : Agent
     private float alphaThreshold = 0.1f; 
     private float cf0 = 1/20 ;
     private float bf0 = 1/20;
-    private float du = 1.5f;
+    private float du = 7f;
     private List<float> rewardWeights = new List<float> {1.0f,1.0f,1.0f,1.0f,1.0f,1.0f}; 
     private SendHyperParameters sendHyperParameters;
 
-    private List<float> hyperParameters ;
+    private List<float> hyperParameters = new List<float>() ;
     //private float beg = 55f;
     private List<float> rewads = new List<float>() ;
     
     public GameObject EnvManager ;
 
-    
-    public override void Initialize()
+    private void Awake() {
+        
+        sendHyperParameters = new SendHyperParameters();
+        SideChannelManager.RegisterSideChannel(sendHyperParameters);
+        hyperParameters = sendHyperParameters.GetReceivedHyperParameters();
+        statsRecorder = Academy.Instance.StatsRecorder;
+        if (hyperParameters.Count == 0)
+        {
+            hyperParameters  = new List<float> {10f, 0.1f, 0.05f, 0.05f, 7.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f} ;
+        }
+    }
+    /*public override void Initialize()
     {
         sendHyperParameters = new SendHyperParameters();
         SideChannelManager.RegisterSideChannel(sendHyperParameters);
         hyperParameters = sendHyperParameters.GetReceivedHyperParameters();
         statsRecorder = Academy.Instance.StatsRecorder;
-    }
+        Debug.Log(hyperParameters.Count);
+        if (hyperParameters.Count == 0)
+        {
+            hyperParameters  = new List<float> {10f, 0.1f, 0.05f, 0.05f, 7.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f} ;
+        }
+    }*/
     public override void OnEpisodeBegin()
     {
     // Reset the environment at the beginning of each episode
@@ -210,6 +225,7 @@ public class TestAgent : Agent
         // Compute Ixy and Iyz for View blocking elements
         Dictionary<CollabObject, List<float>>  Ixyz = new Dictionary<CollabObject, List<float>>() ;
         List<Vector3> initialPosition = new  List<Vector3>() ;
+        float totalReward = 0 ;
         
         
         foreach (CollabObject collab in collabList)
@@ -277,8 +293,10 @@ public class TestAgent : Agent
         }
         AddReward(rewardWeights[0]*Reward1);
         rewads.Add(Reward1);
+        totalReward += rewardWeights[0]*Reward1; 
         AddReward(rewardWeights[1]*Reward2);
         rewads.Add(Reward2);
+        totalReward += rewardWeights[1]*Reward2; 
         float Reward3 = 0f ;
         
         foreach (CollabObject collab in collabList)
@@ -292,6 +310,7 @@ public class TestAgent : Agent
         }
         AddReward(rewardWeights[2]*Reward3);
         rewads.Add(Reward3);
+        totalReward += rewardWeights[2]*Reward3;
 
         // Act in distraction objects 
         foreach (DistrcObject distrc in distrcList)
@@ -316,8 +335,10 @@ public class TestAgent : Agent
         }
         AddReward(rewardWeights[3]*Reward4);
         rewads.Add(Reward4);
+        totalReward += rewardWeights[3]*Reward4;
         AddReward(rewardWeights[4]*Reward5);
         rewads.Add(Reward5);
+        totalReward += rewardWeights[4]*Reward5;
 
         foreach (MaliciuosAvatar malavatar in malavatarList)
         {
@@ -332,19 +353,35 @@ public class TestAgent : Agent
             if (malavatarList.Count != 0)
             {
                 Reward6 -= utils.ReLU(du - Vector3.Distance(avatar.GetPosition(),malavatarList[0].GetPosition()));
+                //Debug.Log(du - Vector3.Distance(avatar.GetPosition(),malavatarList[0].GetPosition()));
+                
             }
             
         }
         AddReward(rewardWeights[5]*Reward6);
         rewads.Add(Reward6);
-        
+        totalReward += rewardWeights[5]*Reward6; 
         statsRecorder.Add("Reward1", Reward1);
         statsRecorder.Add("Reward2", Reward2);
         statsRecorder.Add("Reward3", Reward3);
         statsRecorder.Add("Reward4", Reward4);
         statsRecorder.Add("Reward5", Reward5);
         statsRecorder.Add("Reward6", Reward6);
+        statsRecorder.Add("Total Reward",totalReward);
+        statsRecorder.Add("alphaThreshold",hyperParameters[1]);
+        statsRecorder.Add("cf0",hyperParameters[2]);
+        statsRecorder.Add("bf0",hyperParameters[3]);
+        statsRecorder.Add("du",hyperParameters[4]);
+        statsRecorder.Add("a1",hyperParameters[5]);
+        statsRecorder.Add("a2",hyperParameters[6]);
+        statsRecorder.Add("a3",hyperParameters[7]);
+        statsRecorder.Add("a4",hyperParameters[8]);
+        statsRecorder.Add("a5",hyperParameters[9]);
+        statsRecorder.Add("a6",hyperParameters[10]);
         //Debug.Log(rewads.Count);
+        //Debug.Log("Total reward is:" + (Reward1 + Reward2 + Reward3 + Reward4 + Reward5 + Reward6));
+        //SetReward((Reward1 + Reward2 + Reward3 + Reward4 + Reward5 + Reward6));
+        SetReward(totalReward);
         
         //sendHyperParameters.SendIndividualRewards(rewads);
         }

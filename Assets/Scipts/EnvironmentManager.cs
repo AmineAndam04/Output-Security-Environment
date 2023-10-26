@@ -27,7 +27,7 @@ public class EnvironmentManager : MonoBehaviour
         UserHarassmentSim avatarInjection = UserHarassement.GetComponent<UserHarassmentSim>();
         if (AttackWhiteBoard != null && viewBlockingAttackXY !=null)
         {
-            Debug.Log("Hi you are here");
+            //Debug.Log("Hi you are here");
             viewBlockingAttackXY.ResetAttack();
         }
         if (AttackSharedPresentation != null && viewBlockingAttackYZ !=null)
@@ -40,6 +40,7 @@ public class EnvironmentManager : MonoBehaviour
         }
         if (UserHarassement != null && avatarInjection !=null)
         {
+            
             avatarInjection.ResetAttack();
         }
         

@@ -15,15 +15,18 @@ public class UserHarassmentSim : MonoBehaviour
     public float attackPeriod = 50f;
     private GameObject previousTargetedAvatar;
 
-    /*void Start()
+    void Start()
     {
-        Invoke("SpawnMaliciousAvatar", spawnDelay);
+        //Invoke("SpawnMaliciousAvatar", spawnDelay);
         otherAvatars = GameObject.FindGameObjectsWithTag("Avatar");
-    }*/
+    }
 
     void SpawnMaliciousAvatar()
     {
-        maliciousAvatar = Instantiate(maliciousAvatarPrefab, initialPosition, Quaternion.identity);
+        if (maliciousAvatar == null)
+        {
+            maliciousAvatar = Instantiate(maliciousAvatarPrefab, initialPosition, Quaternion.identity);
+        }
         StartCoroutine(AttackRoutine());
     }
 
@@ -74,13 +77,18 @@ public class UserHarassmentSim : MonoBehaviour
 
     public void ResetAttack()
     {
-        StopCoroutine(AttackRoutine());
-        if (maliciousAvatar != null)
+        
+        GameObject[] maliciousAvatars = GameObject.FindGameObjectsWithTag("AvatarMalicious");
+        if (maliciousAvatars.Length >0 )
         {
-            Destroy(maliciousAvatar);
-            targetedAvatar = null;
-            previousTargetedAvatar = null;
+            StopCoroutine(AttackRoutine());
+            foreach (GameObject malAvatar in maliciousAvatars)
+            {
+                Destroy(malAvatar);
+            }
         }
+        targetedAvatar = null;
+        previousTargetedAvatar = null;
         Invoke("SpawnMaliciousAvatar", spawnDelay);
     }
 }

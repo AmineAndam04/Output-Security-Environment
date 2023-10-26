@@ -1467,8 +1467,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DecisionPeriod: 5
-  TakeActionsBetweenDecisions: 1
+  DecisionPeriod: 10
+  TakeActionsBetweenDecisions: 0
 --- !u!114 &1960018850
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2149,10 +2149,10 @@ SceneRoots:
   - {fileID: 1541406739}
   - {fileID: 1178234582}
   - {fileID: 1128046941}
+  - {fileID: 1491444475}
   - {fileID: 1409660955}
   - {fileID: 583215651}
   - {fileID: 1444996650}
   - {fileID: 1597768716}
   - {fileID: 1960018852}
-  - {fileID: 1491444475}
   - {fileID: 100881976}

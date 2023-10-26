@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 public class SendHyperParameters : SideChannel
 {
-    List<float> hyperParameters = new List<float> {10f, 0.1f, 0.05f, 0.05f, 1.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f} ;
+    List<float> hyperParameters = new List<float>() ; // = new List<float> {10f, 0.1f, 0.05f, 0.05f, 7.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f} ;
     public SendHyperParameters()
     {
         
@@ -15,9 +15,9 @@ public class SendHyperParameters : SideChannel
 
     protected override void OnMessageReceived(IncomingMessage msg)
     {
-        //hyperParameters = new List<float>();
+        hyperParameters = new List<float>();
+        hyperParameters.Clear();
         int numHyperParameters = msg.ReadInt32(); // Read the count of float values
-        hyperParameters.Add(numHyperParameters);
         for (int i = 0; i < numHyperParameters; i++)
         {
             float hyperParameter = msg.ReadFloat32();
