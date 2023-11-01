@@ -211,6 +211,10 @@ public class TestAgent : Agent
         }
         //Debug.Log(currentStateSize);
         }
+
+        statsRecorder.Add("Nbr Obsc", obscList.Count);
+        statsRecorder.Add("Nbr distr", distrcList.Count);
+        statsRecorder.Add("Nbr malavatar", malavatarList.Count);
     }
     
 
