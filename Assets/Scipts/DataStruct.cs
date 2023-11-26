@@ -120,8 +120,10 @@ public struct DistrcObject
         
         Vector2 freqs = this.Getfreq();
         Vector2 realShift = new Vector2(0f,0f);
-        realShift.x = (freqs.x*freqs.x*shift.x)/ (1 + freqs.x*shift.x);
-        realShift.y = (freqs.y*freqs.y*shift.y)/ (1 + freqs.y*shift.y);
+        //realShift.x = (freqs.x*freqs.x*shift.x)/ (1 + freqs.x*shift.x);
+        //realShift.y = (freqs.y*freqs.y*shift.y)/ (1 + freqs.y*shift.y);
+        realShift.x = (-shift.x)/ (freqs.x*freqs.x + freqs.x*shift.x);
+        realShift.y = (-shift.y)/ (freqs.y*freqs.y + freqs.y*shift.y);
         ColorChange colorChangeScript;
         FlickerChange flickerChangeScript;
         colorChangeScript = gameObject.GetComponent<ColorChange>();

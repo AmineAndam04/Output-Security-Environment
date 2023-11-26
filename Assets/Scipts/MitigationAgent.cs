@@ -29,11 +29,12 @@ public class TestAgent : Agent
     private List<DistrcObject> distrcList = new List<DistrcObject>();
     private List<Avatar> avatarList = new List<Avatar>();
     private List<MaliciuosAvatar> malavatarList = new List<MaliciuosAvatar>();
-    private float alphaThreshold = 0.1f; 
+    private float alphaThreshold = 0.2f; 
     private float cf0 = 1/20 ;
     private float bf0 = 1/20;
     private float du = 7f;
-    private List<float> rewardWeights = new List<float> {1.0f,1.0f,1.0f,1.0f,1.0f,1.0f}; 
+    private List<float> rewardWeights = new List<float> {0.007f, 0.0003f, 0.04761f, 0.00384f, 0.00384f, 0.1052f}; 
+    
     private SendHyperParameters sendHyperParameters;
 
     private List<float> hyperParameters = new List<float>() ;
@@ -50,7 +51,7 @@ public class TestAgent : Agent
         statsRecorder = Academy.Instance.StatsRecorder;
         if (hyperParameters.Count == 0)
         {
-            hyperParameters  = new List<float> {10f, 0.1f, 0.05f, 0.05f, 7.5f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f} ;
+            hyperParameters  = new List<float> {10f, 0.2f, 0.5f, 0.5f, 9f, 0.007f, 0.0003f, 0.04761f, 0.00384f, 0.00384f, 0.1052f} ;
         }
     }
     /*public override void Initialize()
@@ -272,14 +273,15 @@ public class TestAgent : Agent
                 Vector3 w = collab.GetPosition();
                 Vector3 o = obsc.GetPosition();
                 Vector3 bb = obsc.GetBB()["bounds"];
-                float volume = bb.x * bb.y * bb.z ;
                 if (Ixyz[collab][i]==1)
                 {
                     Vector2 axyz= utils.Axyz(collab.gameObject,obsc.gameObject);
                     float axy = axyz.x;
                     float dxy = Vector2.Distance(new Vector2(w.x,w.y),new Vector2(o.x,o.y));
-                    
-                    Reward1 += dxy - axy - volume;
+                    Reward1 += 0.1f*dxy - axy;
+                    //Debug.Log("Distance: " + dxy);
+                    //Debug.Log("Surface:" + axy);
+                    //Debug.Log("Reward1xy: " + Reward1);
 
 
                 }
@@ -289,18 +291,26 @@ public class TestAgent : Agent
                     Vector2 axyz= utils.Axyz(collab.gameObject,obsc.gameObject);
                     float ayz = axyz.y;
                     float dyz = Vector2.Distance(new Vector2(w.y,w.z),new Vector2(o.y,o.z));
-                    Reward1 += dyz - ayz - volume;
+                    Reward1 += 0.1f*dyz - ayz;
+                    //Debug.Log("Distance: " + dyz);
+                    //Debug.Log("Surface:" + ayz);
+                    //Debug.Log("Reward1yz: " + Reward1);
                 }
                 ++i;
             }
             
         }
+        //Debug.Log("Reward1: " + Reward1);
+        //Debug.Log("Reward2: " + Reward2);
         AddReward(rewardWeights[0]*Reward1);
         rewads.Add(Reward1);
         totalReward += rewardWeights[0]*Reward1; 
+        
         AddReward(rewardWeights[1]*Reward2);
         rewads.Add(Reward2);
         totalReward += rewardWeights[1]*Reward2; 
+
+
         float Reward3 = 0f ;
         
         foreach (CollabObject collab in collabList)
@@ -312,10 +322,12 @@ public class TestAgent : Agent
                 i+=2;
             }
         }
+        //Debug.Log("Reward3: " + Reward3 );
         AddReward(rewardWeights[2]*Reward3);
         rewads.Add(Reward3);
         totalReward += rewardWeights[2]*Reward3;
 
+        
         // Act in distraction objects 
         foreach (DistrcObject distrc in distrcList)
         {
@@ -334,13 +346,15 @@ public class TestAgent : Agent
         {
             Vector2 freqs =  distrc.Getfreq();
             float volume = distrc.GetVolume();
-            Reward5 -= utils.ReLU(freqs.x - cf0) * volume;
-            Reward4 -= utils.ReLU(freqs.x - bf0)*volume;
+            Reward4 -= utils.ReLU(freqs.x - cf0)*volume;
+            Reward5 -= utils.ReLU(freqs.y - bf0)*volume;
             
         }
+        //Debug.Log("Reward4: " + Reward4);
         AddReward(rewardWeights[3]*Reward4);
         rewads.Add(Reward4);
         totalReward += rewardWeights[3]*Reward4;
+        //Debug.Log("Reward5: "+ Reward5);
         AddReward(rewardWeights[4]*Reward5);
         rewads.Add(Reward5);
         totalReward += rewardWeights[4]*Reward5;
@@ -363,9 +377,12 @@ public class TestAgent : Agent
             }
             
         }
+        //Debug.Log("Reward6: " + Reward6);
         AddReward(rewardWeights[5]*Reward6);
         rewads.Add(Reward6);
-        totalReward += rewardWeights[5]*Reward6; 
+        totalReward += rewardWeights[5]*Reward6;
+        totalReward = totalReward / 6f ; 
+        //Debug.Log("Total reward: " + totalReward);
         statsRecorder.Add("Reward1", Reward1);
         statsRecorder.Add("Reward2", Reward2);
         statsRecorder.Add("Reward3", Reward3);

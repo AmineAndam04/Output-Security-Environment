@@ -12,7 +12,7 @@ public class UserHarassmentSim : MonoBehaviour
     private GameObject[] otherAvatars;
     public float privateSpace = 1.5f;
     private GameObject targetedAvatar;
-    public float attackPeriod = 30f; // it was 50s
+    public float attackPeriod = 10f; // it was 50s
     private GameObject previousTargetedAvatar;
 
     void Start()
@@ -58,11 +58,13 @@ public class UserHarassmentSim : MonoBehaviour
                 Renderer sphereRenderer = privateSpaceSphere.GetComponent<Renderer>();
                 Color originalColor = sphereRenderer.material.color; 
                 sphereRenderer.material.color = new Color(1f, 0f, 0f, sphereRenderer.material.color.a);
+                yield return new WaitForSeconds(1f);
+                sphereRenderer.material.color = originalColor ; 
                 yield return new WaitForSeconds(attackPeriod);
 
                 // Reset the targeted avatar to null to choose a new target in the next attack.
                 targetedAvatar = null;
-                sphereRenderer.material.color = originalColor ; 
+                //sphereRenderer.material.color = originalColor ; 
             }
             else
             {
