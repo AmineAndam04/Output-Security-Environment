@@ -119,5 +119,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   render: {fileID: 6052104723088567363}
-  colorfrequencyChange: 0.5
+  colorfrequencyChange: 0.1
   flickerfrequencyChange: 0

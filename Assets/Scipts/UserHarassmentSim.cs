@@ -68,7 +68,7 @@ public class UserHarassmentSim : MonoBehaviour
             }
             else
             {
-                maliciousAvatar.transform.position = Vector3.Lerp(maliciousAvatar.transform.position, targetedAvatar.transform.position, Time.deltaTime);
+                maliciousAvatar.transform.position = Vector3.Lerp(maliciousAvatar.transform.position, targetedAvatar.transform.position, 0.5f);
                 //Debug.Log("Distance" + distance);
             }
 

@@ -346,8 +346,13 @@ public class TestAgent : Agent
         {
             Vector2 freqs =  distrc.Getfreq();
             float volume = distrc.GetVolume();
+            //Debug.Log("Freq" + freqs);
+            //Debug.Log("Volume" + volume);
             Reward4 -= utils.ReLU(freqs.x - cf0)*volume;
             Reward5 -= utils.ReLU(freqs.y - bf0)*volume;
+            //Debug.Log("Reward4: " + Reward4);
+            //Debug.Log("Reward5: "+ Reward5);
+            //Debug.Log("End---------------");
             
         }
         //Debug.Log("Reward4: " + Reward4);
@@ -362,6 +367,7 @@ public class TestAgent : Agent
         foreach (MaliciuosAvatar malavatar in malavatarList)
         {
             positionShift = new Vector3(actions.ContinuousActions[actionsIndex],actions.ContinuousActions[++actionsIndex],actions.ContinuousActions[++actionsIndex]);
+            //positionShift = new Vector3(0.1f,0.1f,0.1f);
             malavatar.ShiftPosition(positionShift); 
             ++actionsIndex;
         }
@@ -372,12 +378,12 @@ public class TestAgent : Agent
             if (malavatarList.Count != 0)
             {
                 Reward6 -= utils.ReLU(du - Vector3.Distance(avatar.GetPosition(),malavatarList[0].GetPosition()));
-                //Debug.Log(du - Vector3.Distance(avatar.GetPosition(),malavatarList[0].GetPosition()));
+                //Debug.Log(malavatarList[0].GetPosition());
                 
             }
             
         }
-        //Debug.Log("Reward6: " + Reward6);
+        //Debug.Log("Reward6: " + Reward6/36);
         AddReward(rewardWeights[5]*Reward6);
         rewads.Add(Reward6);
         totalReward += rewardWeights[5]*Reward6;
