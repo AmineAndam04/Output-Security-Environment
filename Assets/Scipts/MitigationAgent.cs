@@ -51,7 +51,7 @@ public class TestAgent : Agent
         statsRecorder = Academy.Instance.StatsRecorder;
         if (hyperParameters.Count == 0)
         {
-            hyperParameters  = new List<float> {10f, 0.2f, 0.5f, 0.5f, 9f, 0.007f, 0.0003f, 0.04761f, 0.00384f, 0.00384f, 0.1052f} ;
+            hyperParameters  = new List<float> {10f, 0.2f, 0.5f, 0.5f, 2.5f, 0.007f, 0.0003f, 0.04761f, 0.00384f, 0.00384f, 0.1052f} ;
         }
     }
     /*public override void Initialize()
@@ -383,7 +383,7 @@ public class TestAgent : Agent
             }
             
         }
-        //Debug.Log("Reward6: " + Reward6/36);
+        //Debug.Log("Reward6: " + Reward6);
         AddReward(rewardWeights[5]*Reward6);
         rewads.Add(Reward6);
         totalReward += rewardWeights[5]*Reward6;

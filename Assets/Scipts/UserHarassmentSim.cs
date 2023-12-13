@@ -6,7 +6,7 @@ public class UserHarassmentSim : MonoBehaviour
 {
     public GameObject maliciousAvatarPrefab;
     private GameObject maliciousAvatar;
-    private float spawnDelay = 5f;
+    private float spawnDelay = 1f;
     private Vector3 initialPosition = new Vector3(16f, 4.2f, 31f);
 
     private GameObject[] otherAvatars;
@@ -68,7 +68,7 @@ public class UserHarassmentSim : MonoBehaviour
             }
             else
             {
-                maliciousAvatar.transform.position = Vector3.Lerp(maliciousAvatar.transform.position, targetedAvatar.transform.position, 0.5f);
+                maliciousAvatar.transform.position = Vector3.Lerp(maliciousAvatar.transform.position, targetedAvatar.transform.position, 0.8f);
                 //Debug.Log("Distance" + distance);
             }
 
