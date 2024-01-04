@@ -51,7 +51,7 @@ public class TestAgent : Agent
         statsRecorder = Academy.Instance.StatsRecorder;
         if (hyperParameters.Count == 0)
         {
-            hyperParameters  = new List<float> {10f, 0.2f, 0.5f, 0.5f, 2.5f, 0.007f, 0.0003f, 0.04761f, 0.00384f, 0.00384f, 0.1052f} ;
+            hyperParameters  = new List<float> {10f, 0.2f, 0.5f, 0.5f, 2.5f, 0.007f, 0.005f, 0.12f, 0.0013f, 0.0013f, 0.25f} ;
         }
     }
     /*public override void Initialize()

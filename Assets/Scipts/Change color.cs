@@ -5,7 +5,7 @@ using UnityEngine;
 public class SphereColorChange : MonoBehaviour
 {
     public float privateSpace = 1.5f; // distance threshold
-    //public Material sphereMaterial; // assign the material of the sphere in the inspector
+    //public Material sphereMaterial; 
     private Renderer sphereRenderer ;
     private float checkInterval = 0.0f;
     private Color originalColor;

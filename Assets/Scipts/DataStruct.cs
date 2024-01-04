@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-
+// Data  structures to store data 
 public struct CollabObject
 {
     public GameObject gameObject;

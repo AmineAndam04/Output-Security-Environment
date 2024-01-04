@@ -10,14 +10,14 @@ public class SendHyperParameters : SideChannel
     public SendHyperParameters()
     {
         
-        ChannelId = new Guid("1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d"); // Change the Guid
+        ChannelId = new Guid("1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d"); // the Guid
     }
 
     protected override void OnMessageReceived(IncomingMessage msg)
     {
         hyperParameters = new List<float>();
         hyperParameters.Clear();
-        int numHyperParameters = msg.ReadInt32(); // Read the count of float values
+        int numHyperParameters = msg.ReadInt32(); 
         for (int i = 0; i < numHyperParameters; i++)
         {
             float hyperParameter = msg.ReadFloat32();

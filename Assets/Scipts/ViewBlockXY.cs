@@ -98,7 +98,6 @@ public class MaliciousObjectGeneratorXY : MonoBehaviour
         StopCoroutine(GenerateMaliciousObjects());
         if (maliciousObjects.Count > 0)
         {
-            //Debug.Log("Hi you are here");
             foreach (var maliciousObj in maliciousObjects)
             {
                 Destroy(maliciousObj);
